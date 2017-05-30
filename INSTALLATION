@@ -1,0 +1,20 @@
+Your server must have a Nvidia GPU
+Tools required before installing are CUDA and cmake.
+
+1. cd {simple-folder}
+2. ccmake CMakeLists.txt
+3. make
+4. sudo make install
+5. Add two lines in following to ~/.profile
+
+    export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:{CUDA_HOME}/lib64/"
+    export CUDA_HOME={CUDA_HOME}
+    Change {CUDA_HOME} to PATH that CUDA installed in
+
+6. source ~/.profile
+7. simple -version
+
+ If you get the following sentence, the installation was successful.
+    version:    0.0.1
+    Author: CCG CORP
+    Email:  cks3443@gmail.com

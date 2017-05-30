@@ -1,0 +1,2 @@
+/home/ccg/simple/CMakeFiles/simple.dir
+/home/ccg/simple/CMakeFiles/simplelang.dir

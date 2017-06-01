@@ -495,7 +495,7 @@ void device_sl_syntax_check(char fn[])
 
 void H5Write(const char* FILE, double* data, int NX)
 {
-	char* DATASETNAME = "DoubleArray";
+	char* DATASETNAME = "data";
 	int RANK = 1;
 
 	hid_t       file, dataset;
@@ -534,7 +534,7 @@ void H5Write(const char* FILE, double* data, int NX)
 
 void H5Read(const char* FILE, double* data, int rows)
 {
-	char* DATASETNAME = "DoubleArray";
+	char* DATASETNAME = "data";
 
     hid_t       file, dataset;
     hid_t       datatype, dataspace;

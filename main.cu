@@ -25,8 +25,9 @@ int main(int argc, char** argv)
             if (!input || !strcmp(argv[i] , ",")) {
                 ++i;
                 bool isfile = false;
+                char* stop;
                 std::string fn, fn2;
-                int arylen = 0;
+                unsigned int arylen = 0;
                 IO io = Out;
                 fn = argv[i];
                 fn2 = fn + ".h5";
@@ -34,7 +35,7 @@ int main(int argc, char** argv)
                 
                 ++i;
                 if ( isdigit(argv[i][0]) ) {
-                    arylen = atoi(argv[i]);
+                    arylen = (unsigned int)strtod(argv[i], &stop);
                 } else {
                     std::cout << "aryeln is wrong" << std::endl;
                     return 0;

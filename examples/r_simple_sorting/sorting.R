@@ -2,20 +2,22 @@ library(rhdf5)
 
 len <- 1000000000
 
-inform <- c(len)
+inform <- c(len, 0)
 x <- sample(1:len, len, replace = FALSE)
 
-h5write(inform, "infor.h5","data")
-h5write()
+cmd <- paste("simple -i infor 2 , x ", len)
+#system(cmd)
 
-system("simple -i infor 1 , x 1000000000")
-h5write(inform, "infor.h5","data")
+#h5write(inform, "infor.h5","data")
+#h5write(x, "x.h5", "data")
+
+############ TIMESTAMP ############
 
 start.time <- Sys.time()
 
-for (idx in 1:len) {
-  
-}
+system(cmd)
+#for (idx in 1:len) {
+#}
 
 end.time <- Sys.time()
 time.taken <- end.time - start.time

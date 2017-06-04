@@ -4,12 +4,38 @@
 #include <string>
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
+
+using namespace std;
 
 int main(int argc, char** argv)
 {
-    if (argc <= 1) {
-        std::cout << "no option" << std::endl;
-        return 0;
+    if (argc == 1) {
+
+        while (true) {
+            string cmd;
+            
+            cout << ": ";
+            getline(cin, cmd);
+
+            vector<string> cmd_v;
+
+            char *ptr = strtok((char *)cmd.c_str(), " ");
+
+            while (ptr != NULL)
+            {
+                cout << ptr << endl;
+                string str = ptr;
+                cmd_v.push_back(str);
+                ptr = strtok(NULL, " ");
+            }
+
+            std::string stop = "-q";
+
+            if (cmd_v[0] == stop) break;
+
+        }
+
     }
     
     bool input = false;
@@ -61,11 +87,12 @@ int main(int argc, char** argv)
             ++i;
             std::string fn = argv[i];
 
-            int maxProc=0, devId=0;
+            unsigned int maxProc=0, devId=0;
+            char* stop;
             
             ++i; 
             if ( isdigit(argv[i][0]) ) {
-                devId = atoi(argv[i]);
+                devId = (unsigned int)strtod(argv[i], &stop);
             } else {
                 std::cout << "devId is wrong" << std::endl;
                 return 0;
@@ -73,7 +100,7 @@ int main(int argc, char** argv)
             
             ++i; 
             if ( isdigit(argv[i][0]) ) {
-                maxProc = atoi(argv[i]);
+                maxProc = (unsigned int)strtod(argv[i], &stop);
             } else {
                 std::cout << "maxProc is wrong" << std::endl;
                 return 0;
@@ -86,7 +113,6 @@ int main(int argc, char** argv)
             
             d_sl_exe((char *)fn.c_str(), devId, maxProc);
             
-            //input = false;
         }
         else if (!strcmp(argv[i] ,"-h")) {
             if (!input) {

@@ -294,12 +294,6 @@ cmath
 cctype
 -
 
-/home/ccg/simple/sl_code.cpp
-sl.h
-/home/ccg/simple/sl.h
-sl_prot.h
-/home/ccg/simple/sl_prot.h
-
 /home/ccg/simple/sl_device.cuh
 omp.h
 -
@@ -318,18 +312,6 @@ hdf5.h
 sl_device.cuh
 /home/ccg/simple/sl_device.cuh
 
-/home/ccg/simple/sl_misc.cpp
-sl.h
-/home/ccg/simple/sl.h
-sl_prot.h
-/home/ccg/simple/sl_prot.h
-
-/home/ccg/simple/sl_pars.cpp
-sl.h
-/home/ccg/simple/sl.h
-sl_prot.h
-/home/ccg/simple/sl_prot.h
-
 /home/ccg/simple/sl_prot.h
 sl.h
 /home/ccg/simple/sl.h
@@ -341,18 +323,6 @@ sl_prot.h
 /home/ccg/simple/sl_prot.h
 cuda_runtime.h
 -
-
-/home/ccg/simple/sl_tbl.cpp
-sl.h
-/home/ccg/simple/sl.h
-sl_prot.h
-/home/ccg/simple/sl_prot.h
-
-/home/ccg/simple/sl_tkn.cpp
-sl.h
-/home/ccg/simple/sl.h
-sl_prot.h
-/home/ccg/simple/sl_prot.h
 
 /usr/local/cuda/include/builtin_types.h
 device_types.h

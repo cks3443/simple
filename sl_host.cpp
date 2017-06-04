@@ -262,22 +262,9 @@ void sl_run_host_H5(int maxProc)
 					lo_Dmem, h_Gmem, h_nbrLITERAL, lo_code, lo_stack);
 	}
 
-	for (int i=0; i < GSiz; i++) {
-		if ( Gtable[i].name[0] == '$' && Gtable[i].io == Out ) {
-			int aryLen = Gtable[i].aryLen;
-			int adrs = Gtable[i].adrs;
-
-			double* dList = new double[aryLen];
-
-			for (int i2=0; i2 < aryLen; i2++) {
-				dList[i2] = h_Gmem[adrs + i2];
-			}
-			string str = Gtable[i].name;
-            str.erase(0,1);
-			H5Write( str.c_str(), dList, aryLen);
-
-			delete [] dList;
-		}
+	for (int i=0; i < GmemSiz; i++)
+    {
+        Gmem.set(i, h_Gmem[i]);
 	}
 
 	delete [] h_Index;

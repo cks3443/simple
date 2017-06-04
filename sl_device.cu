@@ -388,25 +388,12 @@ void sl_run_device_H5(int devId, int maxProc, int nBlocks, int nThreads)
 								d_Gmem, d_nbrLITERAL, d_code, d_stack);
 	}
 
-    cudaMemcpy(h_Dmem, d_Dmem, sizeof(double)*DmemSiz * maxProc, cudaMemcpyDeviceToHost);
+    //cudaMemcpy(h_Dmem, d_Dmem, sizeof(double)*DmemSiz * maxProc, cudaMemcpyDeviceToHost);
     cudaMemcpy(h_Gmem, d_Gmem, sizeof(double)*GmemSiz, cudaMemcpyDeviceToHost);
 
-	for (int i=0; i < GSiz; i++) {
-		if ( Gtable[i].name[0] == '$' && Gtable[i].io == Out ) {
-			int aryLen = Gtable[i].aryLen;
-			int adrs = Gtable[i].adrs;
-
-			double* dList = new double[aryLen];
-
-			for (int i2=0; i2 < aryLen; i2++) {
-				dList[i2] = h_Gmem[adrs + i2];
-			}
-			string str = Gtable[i].name ;
-            str.erase(0,1);
-			H5Write( str.c_str(), dList, aryLen);
-
-			delete [] dList;
-		}
+	for (int i=0; i < GmemSiz; i++)
+    {
+        Gmem.set(i, h_Gmem[i]);
 	}
 
 	delete [] h_Index;
@@ -429,6 +416,37 @@ void sl_run_device_H5(int devId, int maxProc, int nBlocks, int nThreads)
 	cudaFree(d_stk);
 	cudaFree(d_stack);
 	cudaFree(d_code);
+}
+
+void sl_Print_h5(string& nm)
+{
+    int GSiz = Gtable.size();
+    //std::string nm = name_;
+    bool isin = false;
+
+	for (int i=0; i < GSiz; i++)
+    {
+        string nm_g = Gtable[i].name;
+        nm_g.erase(0,1);
+
+		if ( nm_g == nm ) {
+            isin = true;
+			int aryLen = Gtable[i].aryLen;
+			int adrs = Gtable[i].adrs;
+
+			double* dList = new double[aryLen];
+
+			for (int i2=0; i2 < aryLen; i2++) {
+				dList[i2] = Gmem.get(adrs + i2);
+			}
+			H5Write( nm.c_str(), dList, aryLen);
+
+			delete [] dList;
+            break;
+		}
+	}
+
+    if (isin == false) cout << "no file" << endl;
 }
 
 
@@ -609,33 +627,68 @@ void InputDvarNoH5(char* name_, int aryLen_, IO io_)
 void InputDvarYesH5(char* name_, int aryLen_, IO io_)
 {
 	SymTbl sym;
+    string nm;
 
 	if (name_[0] == '$') {
-		sym.name = name_;
+		nm = name_;
 	}
 	else {
 		string pre = "$";
 		string p_nm = pre + name_;
-		sym.name = p_nm;
-	}
-	sym.nmKind = devId;
-	sym.dtTyp = DBL_T;
-	sym.aryLen = aryLen_;
-	sym.adrs = Gmem.size();
-	sym.io = io_;
-
-	Gtable.push_back(sym);
-
-	double* dList = new double[aryLen_];
-	string fn = sym.name ;
-	H5Read(name_, dList, aryLen_);
-
-	double add_step = 0.;
-	for (int i=0; i < aryLen_; i++) {
-		Gmem.mem.push_back(dList[i]);
+		nm = p_nm;
 	}
 
-	delete [] dList;
+    bool isin = false;
+
+    int sizG = Gtable.size();
+    for (int i=0; i < sizG; i++) {
+        if (Gtable[i].name == nm) {
+
+            isin = true;
+            if (Gtable[i].aryLen == aryLen_) {
+                double* dList = new double[aryLen_];
+                string fn = Gtable[i].name ;
+                H5Read(name_, dList, aryLen_);
+
+                int adrs = Gtable[i].adrs;
+                
+                for (int i=0; i < aryLen_; i++) {
+                    Gmem.mem[adrs + i] = dList[i];
+                }
+
+                delete [] dList;
+            } 
+            else {
+                std::cout << "Not match array size" << std::endl;
+            }
+
+            
+            break;
+        }
+    }
+
+    if (isin == false) {
+
+        sym.name = nm;
+        sym.nmKind = devId;
+        sym.dtTyp = DBL_T;
+        sym.aryLen = aryLen_;
+        sym.adrs = Gmem.size();
+        sym.io = io_;
+
+        Gtable.push_back(sym);
+
+        double* dList = new double[aryLen_];
+        string fn = sym.name ;
+        H5Read(name_, dList, aryLen_);
+
+        double add_step = 0.;
+        for (int i=0; i < aryLen_; i++) {
+            Gmem.mem.push_back(dList[i]);
+        }
+
+        delete [] dList;
+    }
 }
 
 void d_sl_exe(char fn[], int devId, int maxProc)

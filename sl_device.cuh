@@ -40,6 +40,8 @@ void InputDvarYesH5(char* name_, int aryLen_, IO io_);
 
 void sl_run_device_H5(int devId, int maxProc, int nBlocks, int nThreads);
 
+void sl_Print_h5(string& nm);
+
 void sl_run_host_H5(int maxProc);
 
 void d_sl_exe(char fn[], int devId, int maxProc);

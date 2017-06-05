@@ -72,7 +72,7 @@ all: CMakeFiles/simple.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/simple.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ccg/simple/CMakeFiles 9
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ccg/simple/CMakeFiles 10
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/simple.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ccg/simple/CMakeFiles 0
 .PHONY : CMakeFiles/simple.dir/rule
@@ -97,7 +97,7 @@ clean: CMakeFiles/simple.dir/clean
 CMakeFiles/simplelang.dir/all:
 	$(MAKE) -f CMakeFiles/simplelang.dir/build.make CMakeFiles/simplelang.dir/depend
 	$(MAKE) -f CMakeFiles/simplelang.dir/build.make CMakeFiles/simplelang.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/ccg/simple/CMakeFiles  2 3 4 5 6 7 8 9
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ccg/simple/CMakeFiles  2 3 4 5 6 7 8 9 10
 	@echo "Built target simplelang"
 .PHONY : CMakeFiles/simplelang.dir/all
 
@@ -107,7 +107,7 @@ all: CMakeFiles/simplelang.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/simplelang.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ccg/simple/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ccg/simple/CMakeFiles 9
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/simplelang.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ccg/simple/CMakeFiles 0
 .PHONY : CMakeFiles/simplelang.dir/rule
@@ -123,6 +123,41 @@ CMakeFiles/simplelang.dir/clean:
 
 # clean rule for target.
 clean: CMakeFiles/simplelang.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/sl2R.dir
+
+# All Build rule for target.
+CMakeFiles/sl2R.dir/all: CMakeFiles/simplelang.dir/all
+	$(MAKE) -f CMakeFiles/sl2R.dir/build.make CMakeFiles/sl2R.dir/depend
+	$(MAKE) -f CMakeFiles/sl2R.dir/build.make CMakeFiles/sl2R.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ccg/simple/CMakeFiles  11
+	@echo "Built target sl2R"
+.PHONY : CMakeFiles/sl2R.dir/all
+
+# Include target in all.
+all: CMakeFiles/sl2R.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/sl2R.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ccg/simple/CMakeFiles 10
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/sl2R.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ccg/simple/CMakeFiles 0
+.PHONY : CMakeFiles/sl2R.dir/rule
+
+# Convenience name for target.
+sl2R: CMakeFiles/sl2R.dir/rule
+.PHONY : sl2R
+
+# clean rule for target.
+CMakeFiles/sl2R.dir/clean:
+	$(MAKE) -f CMakeFiles/sl2R.dir/build.make CMakeFiles/sl2R.dir/clean
+.PHONY : CMakeFiles/sl2R.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/sl2R.dir/clean
 .PHONY : clean
 
 #=============================================================================

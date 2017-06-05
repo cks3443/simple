@@ -21,6 +21,7 @@ SET(CMAKE_TARGET_LINKED_INFO_FILES
 SET(CMAKE_C_TARGET_INCLUDE_PATH
   "/usr/local/cuda/include"
   "/usr/local/cuda-8.0/samples/common/inc"
+  "/usr/share/R/include"
   "/home/ccg/anaconda3/include"
   )
 SET(CMAKE_CXX_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})

@@ -4,5 +4,5 @@
 # compile CXX with /usr/bin/c++
 CXX_FLAGS =  -fopenmp -fpic -DNDEBUG -O3 -pipe -O3 -DNDEBUG -fPIC -I/usr/local/cuda/include -I/usr/local/cuda-8.0/samples/common/inc -I/usr/share/R/include -I/home/ccg/anaconda3/include   
 
-CXX_DEFINES = -Dsimplelang_EXPORTS
+CXX_DEFINES = -Dsl2R_EXPORTS
 

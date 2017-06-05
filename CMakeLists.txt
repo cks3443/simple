@@ -7,13 +7,27 @@ INCLUDE(FindCUDA)
 include_directories(${CUDA_INCLUDE_DIRS})
 include_directories("/usr/local/cuda-8.0/samples/common/inc/")
 link_directories(${CUDA_LINK_DIRS})
+
+#SET (IOS_INC "/usr/include/c++/4.8/")
+#INCLUDE_DIRECTORIES(${IOS_INC})
+
+#SET (IO_INC "/usr/include/x86_64-linux-gnu/c++/4.8/")
+#INCLUDE_DIRECTORIES(${IO_INC})
+
 SET (CUDA_RT_LIB "/usr/local/cuda-8.0/lib64/")
 LINK_DIRECTORIES(${CUDA_RT_LIB})
 
+SET (R_INC "/usr/share/R/include/")
+INCLUDE_DIRECTORIES(${R_INC})
+
+SET (R_LIB "/usr/lib/R/lib/")
+LINK_DIRECTORIES(${R_LIB})
+
 FIND_PACKAGE(OpenMP)
 IF (OPENMP_FOUND)
-    SET (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS} -fPIC")
-    SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS} -fPIC")
+    #SET (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS} -fpic -O3 -pipe -g")
+    SET (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS} -fpic -std=gnu99 -DNDEBUG -O3 -pipe")
+    SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS} -fpic -DNDEBUG -O3 -pipe")
 ENDIF()
 SET (CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS}; -O3 -gencode arch=compute_30,code=sm_30)
 ENABLE_LANGUAGE(CXX)
@@ -65,11 +79,15 @@ CUDA_ADD_LIBRARY(simplelang SHARED
     sl_device.cu
     sl_host.cpp
     sl_run.cu
+    Rinterface.cu
+    #sl2R.cpp
 )
 
-CUDA_ADD_EXECUTABLE(simple main.cu)
+CUDA_ADD_LIBRARY(sl2R SHARED sl2R.cpp)
+TARGET_LINK_LIBRARIES(sl2R simplelang ${_hdf5_libs} cudart R)
 
-TARGET_LINK_LIBRARIES(simple simplelang ${_hdf5_libs} cudart)
+CUDA_ADD_EXECUTABLE(simple main.cu)
+TARGET_LINK_LIBRARIES(simple simplelang ${_hdf5_libs} cudart R)
 
 INSTALL (TARGETS simple RUNTIME DESTINATION /usr/local/bin)
 INSTALL (TARGETS simplelang LIBRARY DESTINATION /usr/lib)

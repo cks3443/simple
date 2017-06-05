@@ -349,6 +349,9 @@ SimLang_SOURCE_DIR:STATIC=/home/ccg/simple
 //Dependencies for the target
 simplelang_LIB_DEPENDS:STATIC=general;/usr/local/cuda/lib64/libcudart.so;
 
+//Dependencies for the target
+sl2R_LIB_DEPENDS:STATIC=general;/usr/local/cuda/lib64/libcudart.so;general;simplelang;general;hdf5;general;hdf5_cpp;general;cudart;general;R;
+
 
 ########################
 # INTERNAL cache entries
@@ -489,7 +492,7 @@ CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 CUDA_64_BIT_DEVICE_CODE-ADVANCED:INTERNAL=1
 //List of intermediate files that are part of the cuda dependency
 // scanning.
-CUDA_ADDITIONAL_CLEAN_FILES:INTERNAL=/home/ccg/simple/CMakeFiles/simplelang.dir//simplelang_generated_sl_device.cu.o.depend;/home/ccg/simple/CMakeFiles/simplelang.dir//simplelang_generated_sl_run.cu.o.depend;/home/ccg/simple/CMakeFiles/simple.dir//simple_generated_main.cu.o.depend
+CUDA_ADDITIONAL_CLEAN_FILES:INTERNAL=/home/ccg/simple/CMakeFiles/simplelang.dir//simplelang_generated_sl_device.cu.o.depend;/home/ccg/simple/CMakeFiles/simplelang.dir//simplelang_generated_sl_run.cu.o.depend;/home/ccg/simple/CMakeFiles/simplelang.dir//simplelang_generated_Rinterface.cu.o.depend;/home/ccg/simple/CMakeFiles/simple.dir//simple_generated_main.cu.o.depend
 //ADVANCED property for variable: CUDA_ATTACH_VS_BUILD_RULE_TO_CUDA_FILE
 CUDA_ATTACH_VS_BUILD_RULE_TO_CUDA_FILE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CUDA_CUDART_LIBRARY

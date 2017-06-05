@@ -1,6 +1,7 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o"
   "CMakeFiles/simplelang.dir/./simplelang_generated_sl_run.cu.o"
+  "CMakeFiles/simplelang.dir/./simplelang_generated_Rinterface.cu.o"
   "CMakeFiles/simplelang.dir/sl_code.cpp.o"
   "CMakeFiles/simplelang.dir/sl_misc.cpp.o"
   "CMakeFiles/simplelang.dir/sl_pars.cpp.o"

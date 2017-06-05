@@ -9,6 +9,10 @@
 #include "sl_run.cuh"
 #include "hdf5.h"
 
+#include "R.h"
+#include "Rdefines.h"
+#include "Rinternals.h"
+
 extern vector<int> intercode;
 extern vector<int> Ind;
 
@@ -47,5 +51,11 @@ void sl_run_host_H5(int maxProc);
 void d_sl_exe(char fn[], int devId, int maxProc);
 
 void h_sl_exe(char fn[], int maxProc);
+
+void Rinterface(char* msg);
+
+extern "C" {
+    SEXP sl2R(SEXP msg) ;
+}
 
 #endif

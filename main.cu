@@ -4,7 +4,8 @@
 #include <string>
 #include <stdio.h>
 #include <unistd.h>
-#include <locale>
+#include <cctype>
+#include <cstring>
 
 using namespace std;
 
@@ -49,13 +50,8 @@ int main(int argc, char** argv)
                 if (access((char*) fn2.c_str(), 0) == 0) isfile = true;
                 
                 ++i;
-                std::locale loc;
-                if ( isdigit(cmd_v[i].c_str()[0], loc) ) {
-                    arylen = (unsigned int)strtod(cmd_v[i].c_str(), &stop);
-                } else {
-                    std::cout << "aryeln is wrong" << std::endl;
-                    return 0;
-                }
+                
+                arylen = (unsigned int)strtod(cmd_v[i].c_str(), &stop);
 
                 if (isfile) {
                     InputDvarYesH5((char *)fn.c_str(), arylen, io);
@@ -74,22 +70,10 @@ int main(int argc, char** argv)
                 char* stop;
                 
                 ++i; 
-                std::locale loc;
-                if ( isdigit(cmd_v[i].c_str()[0], loc) ) {
-                    devId = (unsigned int)strtod(cmd_v[i].c_str(), &stop);
-                } else {
-                    std::cout << "devId is wrong" << std::endl;
-                    return 0;
-                }
+                devId = (unsigned int)strtod(cmd_v[i].c_str(), &stop);
                 
                 ++i; 
-                //std::locale loc;
-                if ( isdigit(cmd_v[i].c_str()[0], loc) ) {
-                    maxProc = (unsigned int)strtod(cmd_v[i].c_str(), &stop);
-                } else {
-                    std::cout << "maxProc is wrong" << std::endl;
-                    return 0;
-                }
+                maxProc = (unsigned int)strtod(cmd_v[i].c_str(), &stop);
                 
                 if (access((char *)fn.c_str(), 0) != 0) {
                     std::cout << "no " << fn.c_str() << " file" << std::endl;
@@ -108,13 +92,7 @@ int main(int argc, char** argv)
                 char* stop;
                 
                 ++i; 
-                std::locale loc;
-                if ( isdigit(cmd_v[i].c_str()[0], loc) ) {
-                    maxProc = (unsigned int)strtod(cmd_v[i].c_str(), &stop);
-                } else {
-                    std::cout << "maxProc is wrong" << std::endl;
-                    return 0;
-                }
+                maxProc = (unsigned int)strtod(cmd_v[i].c_str(), &stop);
                 
                 if (access((char *)fn.c_str(), 0) != 0) {
                     std::cout << "no " << fn.c_str() << " file" << std::endl;

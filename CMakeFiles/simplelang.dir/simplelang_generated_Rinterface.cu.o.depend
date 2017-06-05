@@ -33,7 +33,7 @@ SET(CUDA_NVCC_DEPEND
  "/home/ccg/anaconda3/include/H5public.h"
  "/home/ccg/anaconda3/include/H5version.h"
  "/home/ccg/anaconda3/include/hdf5.h"
- "/home/ccg/simple/main.cu"
+ "/home/ccg/simple/Rinterface.cu"
  "/home/ccg/simple/sl.h"
  "/home/ccg/simple/sl_device.cuh"
  "/home/ccg/simple/sl_prot.h"

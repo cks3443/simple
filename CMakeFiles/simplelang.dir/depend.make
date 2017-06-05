@@ -96,6 +96,21 @@ CMakeFiles/simplelang.dir/sl_host.cpp.o: /usr/local/cuda/include/texture_types.h
 CMakeFiles/simplelang.dir/sl_host.cpp.o: /usr/local/cuda/include/vector_functions.h
 CMakeFiles/simplelang.dir/sl_host.cpp.o: /usr/local/cuda/include/vector_functions.hpp
 CMakeFiles/simplelang.dir/sl_host.cpp.o: /usr/local/cuda/include/vector_types.h
+CMakeFiles/simplelang.dir/sl_host.cpp.o: /usr/share/R/include/R.h
+CMakeFiles/simplelang.dir/sl_host.cpp.o: /usr/share/R/include/R_ext/Arith.h
+CMakeFiles/simplelang.dir/sl_host.cpp.o: /usr/share/R/include/R_ext/Boolean.h
+CMakeFiles/simplelang.dir/sl_host.cpp.o: /usr/share/R/include/R_ext/Complex.h
+CMakeFiles/simplelang.dir/sl_host.cpp.o: /usr/share/R/include/R_ext/Constants.h
+CMakeFiles/simplelang.dir/sl_host.cpp.o: /usr/share/R/include/R_ext/Error.h
+CMakeFiles/simplelang.dir/sl_host.cpp.o: /usr/share/R/include/R_ext/Memory.h
+CMakeFiles/simplelang.dir/sl_host.cpp.o: /usr/share/R/include/R_ext/Print.h
+CMakeFiles/simplelang.dir/sl_host.cpp.o: /usr/share/R/include/R_ext/RS.h
+CMakeFiles/simplelang.dir/sl_host.cpp.o: /usr/share/R/include/R_ext/Random.h
+CMakeFiles/simplelang.dir/sl_host.cpp.o: /usr/share/R/include/R_ext/Utils.h
+CMakeFiles/simplelang.dir/sl_host.cpp.o: /usr/share/R/include/R_ext/libextern.h
+CMakeFiles/simplelang.dir/sl_host.cpp.o: /usr/share/R/include/Rconfig.h
+CMakeFiles/simplelang.dir/sl_host.cpp.o: /usr/share/R/include/Rdefines.h
+CMakeFiles/simplelang.dir/sl_host.cpp.o: /usr/share/R/include/Rinternals.h
 
 CMakeFiles/simplelang.dir/sl_misc.cpp.o: sl.h
 CMakeFiles/simplelang.dir/sl_misc.cpp.o: sl_misc.cpp

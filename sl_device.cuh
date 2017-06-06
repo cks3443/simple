@@ -54,8 +54,16 @@ void h_sl_exe(char fn[], int maxProc);
 
 void Rinterface(char* msg);
 
+void create_(char* name_, int NList, double *dList);
+void update_(char* name_, int NList, double *dList);
+void get_(char* name_, double *dList);
+int get_length(char* name_);
+
 extern "C" {
-    SEXP sl2R(SEXP msg) ;
+    SEXP RUN(SEXP msg);
+    SEXP CREATE(SEXP NM, SEXP RVec);
+    SEXP UPDATE(SEXP NM, SEXP RVec);
+    SEXP GET(SEXP NM);
 }
 
 #endif

@@ -715,3 +715,126 @@ void d_sl_exe(char fn[], int devId, int maxProc)
     nbrLITERAL.resize(0);
     Dmem.mem.resize(0); */
 }
+
+void create_(char* name_, int NList, double *dList)
+{
+	SymTbl sym;
+    string nm;
+
+	if (name_[0] == '$') {
+		nm = name_;
+	}
+	else {
+		string pre = "$";
+		string p_nm = pre + name_;
+		nm = p_nm;
+	}
+
+    sym.name = nm;
+    sym.nmKind = devId;
+    sym.dtTyp = DBL_T;
+    sym.aryLen = NList;
+    sym.adrs = Gmem.size();
+    sym.io = Out;
+
+    Gtable.push_back(sym);
+
+    for (int i=0; i < NList; i++) {
+        Gmem.mem.push_back(dList[i]);
+    }
+}
+
+void update_(char* name_, int NList, double *dList)
+{
+    SymTbl sym;
+    string nm;
+
+    if (name_[0] == '$') {
+        nm = name_;
+    }
+    else {
+        string pre = "$";
+        string p_nm = pre + name_;
+        nm = p_nm;
+    }
+
+    int sizG = Gtable.size();
+    for (int i=0; i < sizG; i++) {
+        if (Gtable[i].name == nm) {
+
+            if (Gtable[i].aryLen == NList) {
+
+                int adrs = Gtable[i].adrs;
+                
+                for (int i=0; i < NList; i++) {
+                    Gmem.mem[adrs + i] = dList[i];
+                }
+
+            } 
+            else {
+                std::cout << "Not match array size" << std::endl;
+            }
+            
+            break;
+        }
+    }
+
+}
+
+int get_length(char* name_)
+{
+    SymTbl sym;
+    string nm;
+
+    if (name_[0] == '$') {
+        nm = name_;
+    }
+    else {
+        string pre = "$";
+        string p_nm = pre + name_;
+        nm = p_nm;
+    }
+
+    int size = 0;
+
+    int sizG = Gtable.size();
+    for (int i=0; i < sizG; i++) {
+        if (Gtable[i].name == nm) {
+
+            size = Gtable[i].aryLen;
+
+            break;
+        }
+    }
+    return size;
+}
+
+void get_(char* name_, double *dList)
+{
+    SymTbl sym;
+    string nm;
+
+    if (name_[0] == '$') {
+        nm = name_;
+    }
+    else {
+        string pre = "$";
+        string p_nm = pre + name_;
+        nm = p_nm;
+    }
+
+    int sizG = Gtable.size();
+    for (int i=0; i < sizG; i++) {
+        
+        if (Gtable[i].name == nm) {
+            int adrs = Gtable[i].adrs;
+            int NList = Gtable[i].aryLen;
+            
+            for (int i=0; i < NList; i++) {
+                dList[i] = Gmem.mem[adrs + i];
+            }
+
+            break;
+        }
+    }
+}

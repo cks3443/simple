@@ -90,5 +90,5 @@ CUDA_ADD_EXECUTABLE(simple main.cu)
 TARGET_LINK_LIBRARIES(simple simplelang ${_hdf5_libs} cudart R)
 
 INSTALL (TARGETS simple RUNTIME DESTINATION /usr/local/bin)
-INSTALL (TARGETS simplelang LIBRARY DESTINATION /usr/lib)
+INSTALL (TARGETS simplelang sl2R LIBRARY DESTINATION /usr/lib)
 INSTALL (FILES sl.h sl_prot.h sl_device.cuh sl_run.cuh DESTINATION /usr/local/include)

@@ -29,10 +29,10 @@ sl_device <- function(id, maxProc) {
   .Call('sl_device', id, maxProc);
 }
 
-sl_host <- function(maxProc) {
-  .Call('sl_host', maxProc);
-}
-
 sl_end <- function() {
   dyn.unload('/usr/lib/libsl2R.so')
 }
+
+####### YOUR CODE ###############################
+
+

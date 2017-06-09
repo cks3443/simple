@@ -2,13 +2,33 @@
 #include <Rinternals.h>
 
 extern "C" {
-    SEXP RUN(SEXP msg) {
+    SEXP sl_run(SEXP msg) {
         const char* msg_c = CHAR(asChar(msg));
         Rinterface((char*)msg_c);
         return (R_NilValue);
     }
+    
+    SEXP sl_device(SEXP d_id, SEXP maxProc) {
+        int _id = asInteger(d_id);
+        int _max = asInteger(maxProc);
+        d_sl_exe(_id, _max);
+        return (R_NilValue);
+    }
+    
+    SEXP sl_host(SEXP maxProc) {
+        //int _id = asInteger(d_id);
+        int _max = asInteger(maxProc);
+        h_sl_exe(_max);
+        return (R_NilValue);
+    }
+    
+    SEXP sl_lc(SEXP msg) {
+        const char* msg_c = CHAR(asChar(msg));
+        loadcode((char*)msg_c);
+        return (R_NilValue);
+    }
 
-    SEXP CREATE(SEXP NM, SEXP Rvec) {
+    SEXP sl_create(SEXP NM, SEXP Rvec) {
         
         const char* nm = CHAR(asChar(NM));
         int NList = length(Rvec);
@@ -19,7 +39,7 @@ extern "C" {
     }
 
     
-    SEXP UPDATE(SEXP NM, SEXP Rvec) {
+    SEXP sl_update(SEXP NM, SEXP Rvec) {
         
         const char* nm = CHAR(asChar(NM));
         int NList = length(Rvec);
@@ -29,7 +49,7 @@ extern "C" {
         return (R_NilValue);
     }
 
-    SEXP GET(SEXP NM) {
+    SEXP sl_get(SEXP NM) {
         
         const char* nm = CHAR(asChar(NM));
         int NList = get_length((char*)nm);

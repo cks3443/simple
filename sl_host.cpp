@@ -292,10 +292,10 @@ void host_sl_exe(char fn[], int maxProc)
 	Dmem.mem.resize(0);
 }
 
-void h_sl_exe(char fn[], int maxProc)
+void h_sl_exe(int maxProc)
 {
-    convert_to_internalCode(fn);
-    syntaxChk();
+    //convert_to_internalCode(fn);
+    //syntaxChk();
 
 	sl_run_host_H5(maxProc);
 /*

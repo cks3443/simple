@@ -1,6 +1,8 @@
-
-
 #include "sl_device.cuh"
+
+extern vector<string> strLITERAL;
+extern vector<double> nbrLITERAL;
+
 
 void sl_run_device(int devId, int maxProc, int nBlocks, int nThreads, double* host_List)
 {
@@ -212,23 +214,7 @@ void sl_run_device(int devId, int maxProc, int nBlocks, int nThreads, double* ho
 
 void sl_run_device_H5(int devId, int maxProc, int nBlocks, int nThreads)
 {
-	cudaError_t error = cudaSetDevice(devId);
-
-	if (error != cudaSuccess)
-	{
-		 printf("cudaSetDevice returned error code %d, line(%d)\n", error, __LINE__);
-		 exit(EXIT_FAILURE);
-	}
-
-
-     // get number of SMs on this GPU
-     error = cudaGetDevice(&devId);
-
-     if (error != cudaSuccess)
-     {
-         printf("cudaGetDevice returned error code %d, line(%d)\n", error, __LINE__);
-         exit(EXIT_FAILURE);
-     }
+	//cudaSetDevice(devId);
 
     int IndexSiz, CodeArrSiz, DmemSiz, GmemSiz, nbrSiz;
     int GSiz, LSiz, spReg;
@@ -256,16 +242,20 @@ void sl_run_device_H5(int devId, int maxProc, int nBlocks, int nThreads)
         h_CodeArr[i] = intercode[i];
     }
 
+    //std::cout<<IndexSiz<<std::endl;
+    //std::cout << cudaMalloc( &d_Index, sizeof(int)*IndexSiz) << std::endl;
+    
     if (cudaSuccess != cudaMalloc((void **) &d_Index, sizeof(int)*IndexSiz))
     {
-        std::cout << "Memory Over" << std::endl;
-        return;
+        std::cout << "Memory Over 1" << std::endl;
+        return ;
     }
+
     cudaMemcpy(d_Index, h_Index, sizeof(int)*IndexSiz, cudaMemcpyHostToDevice);
 
     if (cudaSuccess != cudaMalloc((void **) &d_CodeArr, sizeof(int)*CodeArrSiz))
     {
-        std::cout << "Memory Over" << std::endl;
+        std::cout << "Memory Over 2" << std::endl;
         return;
     }
     cudaMemcpy(d_CodeArr, h_CodeArr, sizeof(int)*CodeArrSiz, cudaMemcpyHostToDevice);
@@ -307,21 +297,21 @@ void sl_run_device_H5(int devId, int maxProc, int nBlocks, int nThreads)
 
     if (cudaSuccess != cudaMalloc((void **) &d_GTbl, sizeof(d_SymTbl)*GSiz))
     {
-        std::cout << "Memory Over" << std::endl;
+        std::cout << "Memory Over 3" << std::endl;
         return;
     }
     cudaMemcpy(d_GTbl, h_GTbl, sizeof(d_SymTbl)*GSiz, cudaMemcpyHostToDevice);
 
     if (cudaSuccess != cudaMalloc((void **) &d_LTbl, sizeof(d_SymTbl)*LSiz))
     {
-        std::cout << "Memory Over" << std::endl;
+        std::cout << "Memory Over 4" << std::endl;
         return;
     }
     cudaMemcpy(d_LTbl, h_LTbl, sizeof(d_SymTbl)*LSiz, cudaMemcpyHostToDevice);
 
     if (cudaSuccess != cudaMalloc((void **) &d_runParm, sizeof(RUN_PARM)*maxProc))
     {
-        std::cout << "Memory Over" << std::endl;
+        std::cout << "Memory Over 5" << std::endl;
         return;
     }
 
@@ -343,38 +333,38 @@ void sl_run_device_H5(int devId, int maxProc, int nBlocks, int nThreads)
 
     if (cudaSuccess != cudaMalloc(&d_Dmem, sizeof(double)*DmemSiz * maxProc))
     {
-        std::cout << "Memory Over" << std::endl;
+        std::cout << "Memory Over 6" << std::endl;
         return;
     }
     cudaMemcpy(d_Dmem, h_Dmem, sizeof(double)*DmemSiz * maxProc, cudaMemcpyHostToDevice);
 
     if (cudaSuccess != cudaMalloc(&d_Gmem, sizeof(double)*GmemSiz))
     {
-        std::cout << "Memory Over" << std::endl;
+        std::cout << "Memory Over 7" << std::endl;
         return;
     }
     cudaMemcpy(d_Gmem, h_Gmem, sizeof(double)*GmemSiz, cudaMemcpyHostToDevice);
 
     if (cudaSuccess != cudaMalloc(&d_nbrLITERAL, sizeof(double)*nbrSiz))
     {
-        std::cout << "Memory Over" << std::endl;
+        std::cout << "Memory Over 8" << std::endl;
         return;
     }
     cudaMemcpy(d_nbrLITERAL, h_nbrLITERAL, sizeof(double)*nbrSiz, cudaMemcpyHostToDevice);
 
 	if (cudaSuccess != cudaMalloc((void **) &d_stk, sizeof(Stack) * maxProc))
     {
-        std::cout << "Memory Over" << std::endl;
+        std::cout << "Memory Over 9" << std::endl;
         return;
     }
 	if (cudaSuccess != cudaMalloc((void **) &d_stack, sizeof(double) * MAXSIZE_ * maxProc))
     {
-        std::cout << "Memory Over" << std::endl;
+        std::cout << "Memory Over 10" << std::endl;
         return;
     }
 	if (cudaSuccess != cudaMalloc((void **) &d_code, sizeof(TokenSet) * 2 * maxProc))
     {
-        std::cout << "Memory Over" << std::endl;
+        std::cout << "Memory Over 11" << std::endl;
         return;
     }
 
@@ -388,12 +378,13 @@ void sl_run_device_H5(int devId, int maxProc, int nBlocks, int nThreads)
 								d_Gmem, d_nbrLITERAL, d_code, d_stack);
 	}
 
-    //cudaMemcpy(h_Dmem, d_Dmem, sizeof(double)*DmemSiz * maxProc, cudaMemcpyDeviceToHost);
+    cudaMemcpy(h_Dmem, d_Dmem, sizeof(double)*DmemSiz * maxProc, cudaMemcpyDeviceToHost);
     cudaMemcpy(h_Gmem, d_Gmem, sizeof(double)*GmemSiz, cudaMemcpyDeviceToHost);
 
 	for (int i=0; i < GmemSiz; i++)
     {
         Gmem.set(i, h_Gmem[i]);
+        //std::cout<<Gmem.get(i)<<endl;
 	}
 
 	delete [] h_Index;
@@ -691,11 +682,21 @@ void InputDvarYesH5(char* name_, int aryLen_, IO io_)
     }
 }
 
-void d_sl_exe(char fn[], int devId, int maxProc)
+void loadcode(char fn[])
 {
-    cudaSetDevice(devId);
+    /*if (access(fn), 0) != 0) {
+        std::cout << "no " << fn << " file" << std::endl;
+        return 0;
+    }*/
     convert_to_internalCode(fn);
     syntaxChk();
+}
+
+void d_sl_exe(int devId, int maxProc)
+{
+    cudaSetDevice(devId);
+    //convert_to_internalCode(fn);
+    //syntaxChk();
 
     int  nBlocks, nThreads;
     nBlocks = 65535 ;
@@ -707,13 +708,6 @@ void d_sl_exe(char fn[], int devId, int maxProc)
     nThreads = (int)(devProp.maxThreadsPerBlock / 2);
 
     sl_run_device_H5(devId, maxProc, nBlocks, nThreads);
-/*    
-    intercode.resize(0);
-    Ind.resize(0);
-    Gtable.resize(0);
-    Ltable.resize(0);
-    nbrLITERAL.resize(0);
-    Dmem.mem.resize(0); */
 }
 
 void create_(char* name_, int NList, double *dList)

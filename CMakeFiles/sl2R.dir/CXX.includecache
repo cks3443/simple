@@ -319,6 +319,18 @@ Rdefines.h
 /home/ccg/simple/Rdefines.h
 Rinternals.h
 /home/ccg/simple/Rinternals.h
+iostream
+-
+string
+-
+stdio.h
+-
+unistd.h
+-
+cctype
+-
+cstring
+-
 
 /home/ccg/simple/sl_prot.h
 sl.h

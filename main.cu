@@ -9,6 +9,10 @@
 
 using namespace std;
 
+extern vector<string> strLITERAL;
+extern vector<double> nbrLITERAL;
+
+
 int main(int argc, char** argv)
 {
     if (argc == 1) {
@@ -35,8 +39,15 @@ int main(int argc, char** argv)
             string r_device = "-d";
             string r_host = "-h";
             string print = "-p";
+            string load = "-lc";
 
             if (cmd_v[0] == stop) break;
+            else if (cmd_v[0] == load) {
+                int i=0;
+                ++i;
+                loadcode((char*) cmd_v[i].c_str());
+
+            }
             else if (cmd_v[0] == inp) {
                 int i = 0;
                 ++i;
@@ -63,9 +74,6 @@ int main(int argc, char** argv)
             else if (cmd_v[0] == r_device) {
 
                 int i=0;
-                ++i;
-                std::string fn = cmd_v[i];
-
                 unsigned int maxProc=0, devId=0;
                 char* stop;
                 
@@ -74,32 +82,29 @@ int main(int argc, char** argv)
                 
                 ++i; 
                 maxProc = (unsigned int)strtod(cmd_v[i].c_str(), &stop);
-                
+               /* 
                 if (access((char *)fn.c_str(), 0) != 0) {
                     std::cout << "no " << fn.c_str() << " file" << std::endl;
                     return 0;
                 }
-                
-                d_sl_exe((char *)fn.c_str(), devId, maxProc);
+               */ 
+                d_sl_exe(devId, maxProc);
             }
             else if (cmd_v[0] == r_host) {
 
                 int i=0;
-                ++i;
-                std::string fn = cmd_v[i];
-
                 unsigned int maxProc=0;
                 char* stop;
                 
                 ++i; 
                 maxProc = (unsigned int)strtod(cmd_v[i].c_str(), &stop);
-                
+               /* 
                 if (access((char *)fn.c_str(), 0) != 0) {
                     std::cout << "no " << fn.c_str() << " file" << std::endl;
                     return 0;
                 }
-                
-                h_sl_exe((char *)fn.c_str(), maxProc);
+               */ 
+                h_sl_exe(maxProc);
             }
             else if (cmd_v[0] == print) {
                 int i = 0;
@@ -109,7 +114,7 @@ int main(int argc, char** argv)
             }
         }
         //end while
-    }
+    }/*
     else {
         bool input = false;
         
@@ -215,7 +220,7 @@ int main(int argc, char** argv)
             }
         }
     }
-    
+*/    
     intercode.clear();
     Ind.clear();
     Gtable.clear();

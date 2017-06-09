@@ -9,6 +9,9 @@
 
 using namespace std;
 
+extern vector<string> strLITERAL;
+extern vector<double> nbrLITERAL;
+
 void Rinterface(char* msg)
 {
 
@@ -35,12 +38,12 @@ void Rinterface(char* msg)
     if (cmd_v[0] == stop) {
         intercode.resize(0);
         Ind.resize(0);
-        Gtable.resize(0);
+        //Gtable.resize(0);
         Ltable.resize(0);
         nbrLITERAL.resize(0);
-        Gmem.mem.resize(0);
+        strLITERAL.resize(0);
+        //Gmem.mem.resize(0);
         Dmem.mem.resize(0);
-        //break;
     }
     else if (cmd_v[0] == inp) {
         int i = 0;
@@ -68,9 +71,6 @@ void Rinterface(char* msg)
     else if (cmd_v[0] == r_device) {
 
         int i=0;
-        ++i;
-        std::string fn = cmd_v[i];
-
         unsigned int maxProc=0, devId=0;
         char* stop;
         
@@ -79,32 +79,30 @@ void Rinterface(char* msg)
         
         ++i; 
         maxProc = (unsigned int)strtod(cmd_v[i].c_str(), &stop);
-        
+       /* 
         if (access((char *)fn.c_str(), 0) != 0) {
             std::cout << "no " << fn.c_str() << " file" << std::endl;
             return ;
         }
+        */
         
-        d_sl_exe((char *)fn.c_str(), devId, maxProc);
+        d_sl_exe(devId, maxProc);
     }
     else if (cmd_v[0] == r_host) {
 
         int i=0;
-        ++i;
-        std::string fn = cmd_v[i];
-
         unsigned int maxProc=0;
         char* stop;
         
         ++i; 
         maxProc = (unsigned int)strtod(cmd_v[i].c_str(), &stop);
-        
+       /* 
         if (access((char *)fn.c_str(), 0) != 0) {
             std::cout << "no " << fn.c_str() << " file" << std::endl;
             return ;
         }
-        
-        h_sl_exe((char *)fn.c_str(), maxProc);
+       */ 
+        h_sl_exe(maxProc);
     }
     else if (cmd_v[0] == print) {
         int i = 0;

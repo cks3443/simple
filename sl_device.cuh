@@ -13,6 +13,13 @@
 #include "Rdefines.h"
 #include "Rinternals.h"
 
+#include <iostream>
+#include <string>
+#include <stdio.h>
+#include <unistd.h>
+#include <cctype>
+#include <cstring>
+
 extern vector<int> intercode;
 extern vector<int> Ind;
 
@@ -48,9 +55,11 @@ void sl_Print_h5(string& nm);
 
 void sl_run_host_H5(int maxProc);
 
-void d_sl_exe(char fn[], int devId, int maxProc);
+void d_sl_exe(int devId, int maxProc);
 
-void h_sl_exe(char fn[], int maxProc);
+void h_sl_exe(int maxProc);
+
+void loadcode(char fn[]);
 
 void Rinterface(char* msg);
 
@@ -60,10 +69,13 @@ void get_(char* name_, double *dList);
 int get_length(char* name_);
 
 extern "C" {
-    SEXP RUN(SEXP msg);
-    SEXP CREATE(SEXP NM, SEXP RVec);
-    SEXP UPDATE(SEXP NM, SEXP RVec);
-    SEXP GET(SEXP NM);
+    SEXP sl_run(SEXP msg);
+    SEXP sl_device(SEXP d_id, SEXP maxProc);
+    SEXP sl_host(SEXP maxProc) ;
+    SEXP sl_lc(SEXP msg) ;
+    SEXP sl_create(SEXP NM, SEXP RVec);
+    SEXP sl_update(SEXP NM, SEXP RVec);
+    SEXP sl_get(SEXP NM);
 }
 
 #endif

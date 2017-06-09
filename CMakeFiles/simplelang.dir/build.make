@@ -171,6 +171,7 @@ CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/c+
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/ctype.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/endian.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/features.h
+CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/getopt.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/inttypes.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/libio.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/limits.h
@@ -185,11 +186,14 @@ CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/st
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/stdlib.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/string.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/time.h
+CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/unistd.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/wchar.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/wctype.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/x86_64-linux-gnu/bits/byteswap-16.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/x86_64-linux-gnu/bits/byteswap.h
+CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/x86_64-linux-gnu/bits/confname.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/x86_64-linux-gnu/bits/endian.h
+CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/x86_64-linux-gnu/bits/environments.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/x86_64-linux-gnu/bits/huge_val.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/x86_64-linux-gnu/bits/huge_valf.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/x86_64-linux-gnu/bits/huge_vall.h
@@ -202,6 +206,7 @@ CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/x8
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/x86_64-linux-gnu/bits/nan.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/x86_64-linux-gnu/bits/posix1_lim.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/x86_64-linux-gnu/bits/posix2_lim.h
+CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/x86_64-linux-gnu/bits/posix_opt.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/x86_64-linux-gnu/bits/sched.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/x86_64-linux-gnu/bits/select.h
@@ -220,6 +225,7 @@ CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/x8
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/x86_64-linux-gnu/bits/timex.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/x86_64-linux-gnu/bits/types.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/x86_64-linux-gnu/bits/typesizes.h
+CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/x86_64-linux-gnu/bits/unistd.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/x86_64-linux-gnu/bits/waitflags.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/x86_64-linux-gnu/bits/waitstatus.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/include/x86_64-linux-gnu/bits/wchar.h

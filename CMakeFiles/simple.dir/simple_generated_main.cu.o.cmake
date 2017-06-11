@@ -70,7 +70,7 @@ set(generated_file_internal "/home/ccg/simple/CMakeFiles/simple.dir//./simple_ge
 set(generated_cubin_file_internal "/home/ccg/simple/CMakeFiles/simple.dir//./simple_generated_main.cu.o.cubin.txt") # path
 
 set(CUDA_NVCC_EXECUTABLE "/usr/local/cuda/bin/nvcc") # path
-set(CUDA_NVCC_FLAGS -gencode=arch=compute_30,code=sm_30 ;; ) # list
+set(CUDA_NVCC_FLAGS -gencode;arch=compute_30,code=sm_30 ;; ) # list
 # Build specific configuration flags
 set(CUDA_NVCC_FLAGS_RELEASE  ; )
 set(CUDA_NVCC_FLAGS_DEBUG  ; )

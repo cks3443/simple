@@ -29,7 +29,7 @@ IF (OPENMP_FOUND)
     SET (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS} -fpic -std=gnu99 -DNDEBUG -O3 -pipe")
     SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS} -fpic -DNDEBUG -O3 -pipe")
 ENDIF()
-SET (CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS}; -gencode=arch=compute_30,code=sm_30)
+SET (CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS}; -gencode arch=compute_30,code=sm_30)
 ENABLE_LANGUAGE(CXX)
 
 # the option is here so that we can plug it into other

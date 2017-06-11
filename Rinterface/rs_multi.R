@@ -45,3 +45,40 @@ sl_end <- function() {
   .Call('sl_end')
   dyn.unload('/usr/lib/libsl2R.so')
 }
+
+
+############### rs_multi ###############
+
+L <- 2
+TL <- L*L
+
+A <- 1:TL
+A[1:TL] <- 1
+
+B <- A
+C <- A
+inp <- c(L)
+
+sl_begin()
+
+sl_push('A', A)
+sl_push('B', B)
+sl_push('C', C)
+sl_push('inp', inp)
+
+sl_copyHostToDevice()
+
+sl_interpreter('multi.txt')
+
+start.time <- Sys.time()
+
+sl_device(0, TL)
+
+end.time <- Sys.time()
+time.taken <- end.time - start.time
+time.taken
+ 
+
+sl_copyDeviceToHost()
+
+sl_end()

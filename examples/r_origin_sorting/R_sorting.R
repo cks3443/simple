@@ -1,4 +1,4 @@
-x <- sample(1:1000000000, 1000000000, replace = FALSE)
+x <- 10000000:1
 
 start.time <- Sys.time()
 

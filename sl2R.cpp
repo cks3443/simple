@@ -1,6 +1,8 @@
 #include "sl_device.cuh"
 #include <Rinternals.h>
 
+extern double* d_gmem;
+
 extern "C" {
     SEXP sl_run(SEXP msg) {
         const char* msg_c = CHAR(asChar(msg));
@@ -11,6 +13,8 @@ extern "C" {
     SEXP sl_device(SEXP d_id, SEXP maxProc) {
         int _id = asInteger(d_id);
         int _max = asInteger(maxProc);
+        //printf("_id:\t %d", _id);
+        //printf("_max:\t %d", _max);
         d_sl_exe(_id, _max);
         return (R_NilValue);
     }
@@ -22,9 +26,24 @@ extern "C" {
         return (R_NilValue);
     }
     
+    SEXP cpyMemHostToDevice() {
+        cpymemHostToDevice();
+        return (R_NilValue);
+    }
+    
+    SEXP cpyMemDeviceToHost() {
+        cpymemDeviceToHost();
+        return (R_NilValue);
+    }
+    
     SEXP sl_lc(SEXP msg) {
         const char* msg_c = CHAR(asChar(msg));
         loadcode((char*)msg_c);
+        return (R_NilValue);
+    }
+    
+    SEXP sl_end() {
+        end_();
         return (R_NilValue);
     }
 

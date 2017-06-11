@@ -7,15 +7,11 @@ void sl_Exe_global(int nloop, int nBlocks, int nThreads, int maxProc, int DmemSi
 {
     int lo_id = blockDim.x * blockIdx.x + threadIdx.x;
     int thread_id = nBlocks * nThreads * nloop + lo_id;
-
+    
     if (thread_id < maxProc) {
-        RUN_PARM* d_runParm = new RUN_PARM;
+        RUN_PARM* d_runParm = &(x_runParm[thread_id]);
         Stack* d_stk = &(x_stk[thread_id]);
-
-        double* loc_Dmem = new double[DmemSiz];
-
-        for (int i=0; i < DmemSiz; i++) loc_Dmem[i] = x_Dmem[i];
-
+        double* d_Dmem = &(x_Dmem[DmemSiz * thread_id]);
         TokenSet* d_code = &(x_code[2*thread_id]);
         double* d_stack = &(x_stack[MAXSIZE_ * thread_id]);
 
@@ -31,10 +27,7 @@ void sl_Exe_global(int nloop, int nBlocks, int nThreads, int maxProc, int DmemSi
         d_runParm->break_Flg=d_runParm->return_Flg=d_runParm->exit_Flg=false;
         d_runParm->maxLine = IndexSiz-2;
 
-        sl_execute(d_runParm, d_stk, GTbl, LTbl, Index, CodeArr, loc_Dmem, d_Gmem, nbrLITERAL, d_code, d_stack);
-
-        delete [] loc_Dmem;
-        delete d_runParm;
+        sl_execute(d_runParm, d_stk, GTbl, LTbl, Index, CodeArr, d_Dmem, d_Gmem, nbrLITERAL, d_code, d_stack);
     }
 }
 
@@ -79,7 +72,7 @@ void sl_statement(RUN_PARM* runParm, Stack* stk, d_SymTbl* GTbl, d_SymTbl* LTbl,
 			sl_firstCode(save, runParm, runParm->Pc, Index, CodeArr, nbrLITERAL);
 		    sl_nextCode(code, runParm, nbrLITERAL, Index, CodeArr);
             sl_expression(runParm, stk, GTbl, LTbl, Index, CodeArr, d_Dmem, d_Gmem, nbrLITERAL, code, stack);
-
+            
             if (stack_pop(stk, stack)) {
                 ++runParm->Pc;
                 sl_block(runParm, stk, GTbl, LTbl, Index, CodeArr, d_Dmem, d_Gmem, nbrLITERAL, code, stack);
@@ -102,7 +95,6 @@ void sl_statement(RUN_PARM* runParm, Stack* stk, d_SymTbl* GTbl, d_SymTbl* LTbl,
 		for (;;) {
 			if (!sl_get_expression(runParm, stk, While, EofLine, GTbl, LTbl, Index, CodeArr, d_Dmem, d_Gmem, nbrLITERAL, code, stack) ) break;
 			++runParm->Pc;
-
 			sl_block(runParm, stk, GTbl, LTbl, Index, CodeArr, d_Dmem, d_Gmem, nbrLITERAL, code, stack);
 
 			if (runParm->break_Flg || runParm->return_Flg || runParm->exit_Flg) {
@@ -133,32 +125,30 @@ void sl_statement(RUN_PARM* runParm, Stack* stk, d_SymTbl* GTbl, d_SymTbl* LTbl,
 		}
 
 		for (;; runParm->Pc = top_line)
-		{
-			if (stepDt >= 0) {
-				if (d_Dmem[varAdrs] > endDt) break;
+		{                            
+			if (stepDt >= 0) {                                
+				if (d_Dmem[varAdrs] > endDt) break;            
 			}
-			else {
+			else {                                        
 				if (d_Dmem[varAdrs] < endDt) break;
-			}
+			}                                                 
 			++runParm->Pc;
-
-
-            sl_block(runParm, stk, GTbl, LTbl, Index, CodeArr, d_Dmem, d_Gmem, nbrLITERAL, code, stack);
+			sl_block(runParm, stk, GTbl, LTbl, Index, CodeArr, d_Dmem, d_Gmem, nbrLITERAL, code, stack);
 
 			if (runParm->break_Flg || runParm->return_Flg || runParm->exit_Flg) {
 				runParm->break_Flg = false;
-				break;
+				break;                       
 			}
 			d_Dmem[varAdrs] += stepDt;
-		}
-		runParm->Pc = end_line + 1;
+		}                                                 
+		runParm->Pc = end_line + 1; 
     }
     else if (code->kind == Break) {
     	runParm->break_Flg = true;
     }
     else if (code->kind == Gvar || code->kind == Lvar || code->kind == Dvar) {
 		varAdrs = sl_get_memAdrs(runParm, stk, GTbl, LTbl, Index, CodeArr, d_Dmem, d_Gmem, nbrLITERAL, code, stack);
-
+		
 		int Op = 0;
 		if (code->kind == SumAssign) Op = 1;
 		else if (code->kind == MinusAssign) Op = 2;
@@ -243,7 +233,7 @@ void sl_nextCode(TokenSet* Ts, RUN_PARM* runParm, double* nbrLITERAL, int* Index
     nK = CodeArr[runParm->code_ptr];
     kd = (TknKind)CodeArr[runParm->code_ptr++];
 
-    switch(kd)
+    switch(kd) 
 	{
     case IntNum: case DblNum:
         tblNbr = CodeArr[runParm->code_ptr++];
@@ -334,9 +324,9 @@ void sl_term(RUN_PARM* runParm, Stack* stk, d_SymTbl* GTbl, d_SymTbl* LTbl,
         sl_factor(runParm, stk, GTbl, LTbl, Index, CodeArr, d_Dmem, d_Gmem, nbrLITERAL, code, stack);
         return;
     }
-
+	
     sl_term(runParm, stk, GTbl, LTbl, Index, CodeArr, d_Dmem, d_Gmem, nbrLITERAL, code, stack, n+1);
-
+    
 	while (n == sl_opOrder(code->nKind))
 	{
         nK = code->nKind;
@@ -358,7 +348,7 @@ void sl_factor(RUN_PARM* runParm, Stack* stk, d_SymTbl* GTbl, d_SymTbl* LTbl,
 	double d=0.;
 
     switch (kd) {
-
+		
 	case EXP:
 		sl_expression(runParm, stk, Lparen, Rparen, GTbl, LTbl, Index, CodeArr, d_Dmem, d_Gmem, nbrLITERAL, code, stack);
         stack_push(stk, exp(stack_pop(stk, stack)), stack);
@@ -374,7 +364,7 @@ void sl_factor(RUN_PARM* runParm, Stack* stk, d_SymTbl* GTbl, d_SymTbl* LTbl,
 		stack[stk->top] = (double)runParm->ThreadId;
 		sl_nextCode(code, runParm, nbrLITERAL, Index, CodeArr);
 		break;
-
+	
 	case Not: case Minus: case Plus:
 		sl_nextCode(code, runParm, nbrLITERAL, Index, CodeArr);
 		sl_factor(runParm, stk, GTbl, LTbl, Index, CodeArr, d_Dmem, d_Gmem, nbrLITERAL, code, stack);

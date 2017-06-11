@@ -1,8 +1,6 @@
 
 #include "sl_device.cuh"
 
-extern double* d_gmem;
-
 void sl_run_host(int maxProc)
 {
     int IndexSiz, CodeArrSiz, DmemSiz, GmemSiz, nbrSiz;

@@ -63,15 +63,10 @@ void loadcode(char fn[]);
 
 void Rinterface(char* msg);
 
-void cpymemHostToDevice();
-
-void cpymemDeviceToHost();
-
 void create_(char* name_, int NList, double *dList);
 void update_(char* name_, int NList, double *dList);
 void get_(char* name_, double *dList);
 int get_length(char* name_);
-void end_();
 
 extern "C" {
     SEXP sl_run(SEXP msg);
@@ -81,9 +76,6 @@ extern "C" {
     SEXP sl_create(SEXP NM, SEXP RVec);
     SEXP sl_update(SEXP NM, SEXP RVec);
     SEXP sl_get(SEXP NM);
-    SEXP sl_end();
-    SEXP cpyMemHostToDevice();
-    SEXP cpyMemDeviceToHost();
 }
 
 #endif

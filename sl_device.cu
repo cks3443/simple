@@ -3,8 +3,6 @@
 extern vector<string> strLITERAL;
 extern vector<double> nbrLITERAL;
 
-double* d_gmem = NULL;
-
 
 void sl_run_device(int devId, int maxProc, int nBlocks, int nThreads, double* host_List)
 {
@@ -224,7 +222,7 @@ void sl_run_device_H5(int devId, int maxProc, int nBlocks, int nThreads)
     int *h_Index, *d_Index;
     int *h_CodeArr, *d_CodeArr;
     d_SymTbl *h_GTbl, *h_LTbl, *d_GTbl, *d_LTbl;
-    double *h_Dmem, *h_Gmem, *h_nbrLITERAL, *d_Dmem, *d_nbrLITERAL;
+    double *h_Dmem, *h_Gmem, *h_nbrLITERAL, *d_Dmem, *d_Gmem, *d_nbrLITERAL;
 
     RUN_PARM *d_runParm;
 
@@ -246,7 +244,7 @@ void sl_run_device_H5(int devId, int maxProc, int nBlocks, int nThreads)
 
     //std::cout<<IndexSiz<<std::endl;
     //std::cout << cudaMalloc( &d_Index, sizeof(int)*IndexSiz) << std::endl;
-
+    
     if (cudaSuccess != cudaMalloc((void **) &d_Index, sizeof(int)*IndexSiz))
     {
         std::cout << "Memory Over 1" << std::endl;
@@ -311,7 +309,7 @@ void sl_run_device_H5(int devId, int maxProc, int nBlocks, int nThreads)
     }
     cudaMemcpy(d_LTbl, h_LTbl, sizeof(d_SymTbl)*LSiz, cudaMemcpyHostToDevice);
 
-    if (cudaSuccess != cudaMalloc((void **) &d_runParm, sizeof(RUN_PARM)))
+    if (cudaSuccess != cudaMalloc((void **) &d_runParm, sizeof(RUN_PARM)*maxProc))
     {
         std::cout << "Memory Over 5" << std::endl;
         return;
@@ -321,33 +319,31 @@ void sl_run_device_H5(int devId, int maxProc, int nBlocks, int nThreads)
     GmemSiz = Gmem.size();
     nbrSiz = nbrLITERAL.size();
 
-    h_Dmem = new double[DmemSiz];
-    //h_Gmem = new double[GmemSiz];
+    h_Dmem = new double[DmemSiz * maxProc];
+    h_Gmem = new double[GmemSiz];
     h_nbrLITERAL = new double[nbrSiz+10];
 
-    for (int i=0; i< DmemSiz ; i++) {
-		//int lo_i = i % DmemSiz;
-		h_Dmem[i] = Dmem.get(i);
+    for (int i=0; i< DmemSiz * maxProc; i++) {
+		int lo_i = i % DmemSiz;
+		h_Dmem[i] = Dmem.get(lo_i);
 	}
 
-    //for (int i=0; i< GmemSiz; i++) h_Gmem[i] = Gmem.get(i);
+    for (int i=0; i< GmemSiz; i++) h_Gmem[i] = Gmem.get(i);
     for (int i=0; i< nbrSiz; i++)  h_nbrLITERAL[i] = nbrLITERAL[i];
 
-    if (cudaSuccess != cudaMalloc(&d_Dmem, sizeof(double)*DmemSiz))
+    if (cudaSuccess != cudaMalloc(&d_Dmem, sizeof(double)*DmemSiz * maxProc))
     {
         std::cout << "Memory Over 6" << std::endl;
         return;
     }
-    cudaMemcpy(d_Dmem, h_Dmem, sizeof(double)*DmemSiz, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_Dmem, h_Dmem, sizeof(double)*DmemSiz * maxProc, cudaMemcpyHostToDevice);
 
-    /*
     if (cudaSuccess != cudaMalloc(&d_Gmem, sizeof(double)*GmemSiz))
     {
         std::cout << "Memory Over 7" << std::endl;
         return;
     }
     cudaMemcpy(d_Gmem, h_Gmem, sizeof(double)*GmemSiz, cudaMemcpyHostToDevice);
-    */
 
     if (cudaSuccess != cudaMalloc(&d_nbrLITERAL, sizeof(double)*nbrSiz))
     {
@@ -379,18 +375,18 @@ void sl_run_device_H5(int devId, int maxProc, int nBlocks, int nThreads)
 	{
     	sl_Exe_global<<<nBlocks, nThreads>>>(nloop, nBlocks, nThreads, maxProc, DmemSiz, IndexSiz, spReg,
 								d_runParm, d_stk, d_GTbl, d_LTbl, d_Index, d_CodeArr, d_Dmem,
-								d_gmem, d_nbrLITERAL, d_code, d_stack);
+								d_Gmem, d_nbrLITERAL, d_code, d_stack);
 	}
 
-    //cudaMemcpy(h_Dmem, d_Dmem, sizeof(double)*DmemSiz * maxProc, cudaMemcpyDeviceToHost);
-    //cudaMemcpy(h_Gmem, d_Gmem, sizeof(double)*GmemSiz, cudaMemcpyDeviceToHost);
-/*
+    cudaMemcpy(h_Dmem, d_Dmem, sizeof(double)*DmemSiz * maxProc, cudaMemcpyDeviceToHost);
+    cudaMemcpy(h_Gmem, d_Gmem, sizeof(double)*GmemSiz, cudaMemcpyDeviceToHost);
+
 	for (int i=0; i < GmemSiz; i++)
     {
         Gmem.set(i, h_Gmem[i]);
         //std::cout<<Gmem.get(i)<<endl;
 	}
-*/
+
 	delete [] h_Index;
 	cudaFree(d_Index);
 	delete [] h_CodeArr;
@@ -400,10 +396,10 @@ void sl_run_device_H5(int devId, int maxProc, int nBlocks, int nThreads)
 	cudaFree(d_GTbl);
 	cudaFree(d_LTbl);
 	delete [] h_Dmem;
-	//delete [] h_Gmem;
+	delete [] h_Gmem;
 	delete [] h_nbrLITERAL;
 	cudaFree(d_Dmem);
-	//cudaFree(d_Gmem);
+	cudaFree(d_Gmem);
 	cudaFree(d_nbrLITERAL);
 
 	cudaFree(d_runParm);
@@ -483,7 +479,7 @@ void device_sl_exe(char fn[], int devId, int maxProc, double* host_List)
 
     int  nBlocks, nThreads;
     nBlocks = 65535 ;
-
+    
     cudaDeviceSetLimit(cudaLimitStackSize, 60*1024);
 	cudaDeviceProp devProp;
 	cudaGetDeviceProperties(&devProp, devId);
@@ -491,7 +487,7 @@ void device_sl_exe(char fn[], int devId, int maxProc, double* host_List)
 	nThreads = (int)(devProp.maxThreadsPerBlock / 2);
 
 	sl_run_device(devId, maxProc, nBlocks, nThreads, host_List);
-
+	
     intercode.resize(0);
 	Ind.resize(0);
 	Gtable.resize(0);
@@ -646,18 +642,18 @@ void InputDvarYesH5(char* name_, int aryLen_, IO io_)
                 H5Read(name_, dList, aryLen_);
 
                 int adrs = Gtable[i].adrs;
-
+                
                 for (int i=0; i < aryLen_; i++) {
                     Gmem.mem[adrs + i] = dList[i];
                 }
 
                 delete [] dList;
-            }
+            } 
             else {
                 std::cout << "Not match array size" << std::endl;
             }
 
-
+            
             break;
         }
     }
@@ -704,7 +700,7 @@ void d_sl_exe(int devId, int maxProc)
 
     int  nBlocks, nThreads;
     nBlocks = 65535 ;
-
+    
     cudaDeviceSetLimit(cudaLimitStackSize, 60*1024);
     cudaDeviceProp devProp;
     cudaGetDeviceProperties(&devProp, devId);
@@ -744,11 +740,6 @@ void create_(char* name_, int NList, double *dList)
 
 void update_(char* name_, int NList, double *dList)
 {
-    if (d_gmem != NULL) {
-        cpymemDeviceToHost();
-        cudaFree(d_gmem);
-    }
-
     SymTbl sym;
     string nm;
 
@@ -768,21 +759,19 @@ void update_(char* name_, int NList, double *dList)
             if (Gtable[i].aryLen == NList) {
 
                 int adrs = Gtable[i].adrs;
-
+                
                 for (int i=0; i < NList; i++) {
                     Gmem.mem[adrs + i] = dList[i];
                 }
 
-            }
+            } 
             else {
                 std::cout << "Not match array size" << std::endl;
             }
-
+            
             break;
         }
     }
-
-    cpymemHostToDevice();
 
 }
 
@@ -816,8 +805,6 @@ int get_length(char* name_)
 
 void get_(char* name_, double *dList)
 {
-//    cpymemDeviceToHost();
-
     SymTbl sym;
     string nm;
 
@@ -832,11 +819,11 @@ void get_(char* name_, double *dList)
 
     int sizG = Gtable.size();
     for (int i=0; i < sizG; i++) {
-
+        
         if (Gtable[i].name == nm) {
             int adrs = Gtable[i].adrs;
             int NList = Gtable[i].aryLen;
-
+            
             for (int i=0; i < NList; i++) {
                 dList[i] = Gmem.mem[adrs + i];
             }
@@ -844,49 +831,4 @@ void get_(char* name_, double *dList)
             break;
         }
     }
-}
-
-void cpymemHostToDevice()
-{
-    int gSiz = Gmem.mem.size();
-
-    double* h_Gmem = new double[gSiz];
-
-    for (int i=0; i< gSiz; i++) h_Gmem[i] = Gmem.get(i);
-
-    if (cudaSuccess != cudaMalloc(&d_gmem, sizeof(double)*gSiz))
-    {
-        std::cout << "Memory Over" << std::endl;
-        return;
-    }
-    cudaMemcpy(d_gmem, h_Gmem, sizeof(double)*gSiz, cudaMemcpyHostToDevice);
-
-    delete [] h_Gmem;
-}
-
-void cpymemDeviceToHost()
-{
-    int gSiz = Gmem.mem.size();
-
-    double* h_Gmem = new double[gSiz];
-
-    cudaMemcpy(h_Gmem, d_gmem, sizeof(double)*gSiz, cudaMemcpyDeviceToHost);
-
-    for (int i=0; i < gSiz; i++) Gmem.set(i, h_Gmem[i]);
-
-    delete [] h_Gmem;
-}
-
-void end_()
-{
-    cudaFree(d_gmem);
-
-    intercode.clear();
-    Ind.clear();
-    Gtable.clear();
-    Ltable.clear();
-    nbrLITERAL.clear();
-    strLITERAL.clear();
-    Gmem.mem.clear();
-    Dmem.mem.clear();
 }

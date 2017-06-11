@@ -2,21 +2,13 @@ sl_begin <- function() {
   dyn.load('/usr/lib/libsl2R.so')
 }
 
-sl_push <- function(NAME, X) {
+sl_create <- function(NAME, X) {
   X <- as.numeric(X)
   .Call('sl_create', NAME, X)
 }
 
-sl_interpreter <- function(NAME) {
+sl_lc <- function(NAME) {
   .Call('sl_lc', NAME)
-}
-
-sl_copyHostToDevice <- function(NAME) {
-  .Call('cpyMemHostToDevice')
-}
-
-sl_copyDeviceToHost <- function(NAME) {
-  .Call('cpyMemDeviceToHost')
 }
 
 sl_update <- function(NAME, X) {
@@ -42,6 +34,5 @@ sl_host <- function(maxProc) {
 }
 
 sl_end <- function() {
-  .Call('sl_end')
   dyn.unload('/usr/lib/libsl2R.so')
 }

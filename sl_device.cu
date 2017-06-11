@@ -320,13 +320,13 @@ void sl_run_device_H5(int devId, int maxProc, int nBlocks, int nThreads)
     GmemSiz = Gmem.size();
     nbrSiz = nbrLITERAL.size();
 
-    h_Dmem = new double[DmemSiz * maxProc];
+    h_Dmem = new double[DmemSiz];
     //h_Gmem = new double[GmemSiz];
     h_nbrLITERAL = new double[nbrSiz+10];
 
-    for (int i=0; i< DmemSiz * maxProc; i++) {
-		int lo_i = i % DmemSiz;
-		h_Dmem[i] = Dmem.get(lo_i);
+    for (int i=0; i< DmemSiz; i++) {
+		//int lo_i = i % DmemSiz;
+		h_Dmem[i] = Dmem.get(i);
 	}
 
     //for (int i=0; i< GmemSiz; i++) h_Gmem[i] = Gmem.get(i);

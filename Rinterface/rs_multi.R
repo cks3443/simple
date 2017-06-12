@@ -45,3 +45,32 @@ sl_end <- function() {
   .Call('sl_end')
   dyn.unload('/usr/lib/libsimplelang.so')
 }
+
+
+############### rs_multi ###############
+sl_begin()
+
+L <- 5
+TL <- L*L
+
+A <- 1:TL
+A[1:TL] <- 1
+
+B <- 1:TL
+B[1:TL] <- 1
+
+C <- 1:TL
+inp <- c(L)
+
+sl_push('A', A)
+sl_push('B', B)
+sl_push('C', C)
+sl_push('inp', inp)
+
+sl_interpreter('multi.txt')
+
+sl_device(0, TL)
+
+#sl_get('C')
+
+sl_end()

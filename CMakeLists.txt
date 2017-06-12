@@ -14,8 +14,11 @@ link_directories(${CUDA_LINK_DIRS})
 #SET (IO_INC "/usr/include/x86_64-linux-gnu/c++/4.8/")
 #INCLUDE_DIRECTORIES(${IO_INC})
 
-SET (CUDA_RT_LIB "/usr/local/cuda-8.0/lib64/")
+SET (CUDA_RT_LIB "/usr/local/cuda/lib64/stubs/")
 LINK_DIRECTORIES(${CUDA_RT_LIB})
+
+SET (CUDA_LIB "/usr/local/cuda/lib64/")
+LINK_DIRECTORIES(${CUDA_LIB})
 
 SET (R_INC "/usr/share/R/include/")
 INCLUDE_DIRECTORIES(${R_INC})
@@ -29,7 +32,7 @@ IF (OPENMP_FOUND)
     SET (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS} -fpic -std=gnu99 -DNDEBUG -O3 -pipe")
     SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS} -fpic -DNDEBUG -O3 -pipe")
 ENDIF()
-SET (CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS}; -gencode arch=compute_30,code=sm_30)
+SET (CUDA_NVCC_FLAGS "-gencode arch=compute_35,code=sm_35 -gencode arch=compute_50,code=sm_50")
 ENABLE_LANGUAGE(CXX)
 
 # the option is here so that we can plug it into other
@@ -80,15 +83,15 @@ CUDA_ADD_LIBRARY(simplelang SHARED
     sl_host.cpp
     sl_run.cu
     Rinterface.cu
-    #sl2R.cpp
+    sl2R.cpp
 )
 
-CUDA_ADD_LIBRARY(sl2R SHARED sl2R.cpp)
-TARGET_LINK_LIBRARIES(sl2R simplelang ${_hdf5_libs} cudart R)
+#CUDA_ADD_LIBRARY(sl2R SHARED sl2R.cpp)
+TARGET_LINK_LIBRARIES(simplelang ${_hdf5_libs} cudart R cuda)
 
 CUDA_ADD_EXECUTABLE(simple main.cu)
-TARGET_LINK_LIBRARIES(simple simplelang ${_hdf5_libs} cudart R)
+TARGET_LINK_LIBRARIES(simple simplelang ${_hdf5_libs} cudart R cuda)
 
 INSTALL (TARGETS simple RUNTIME DESTINATION /usr/local/bin)
-INSTALL (TARGETS simplelang sl2R LIBRARY DESTINATION /usr/lib)
+INSTALL (TARGETS simplelang LIBRARY DESTINATION /usr/lib)
 INSTALL (FILES sl.h sl_prot.h sl_device.cuh sl_run.cuh DESTINATION /usr/local/include)

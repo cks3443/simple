@@ -12,7 +12,7 @@ extern "C" {
     
     SEXP sl_device(SEXP d_id, SEXP maxProc) {
         int _id = asInteger(d_id);
-        int _max = asInteger(maxProc);
+        unsigned int _max = (unsigned int)(asReal(maxProc));
         //printf("_id:\t %d", _id);
         //printf("_max:\t %d", _max);
         d_sl_exe(_id, _max);
@@ -21,7 +21,7 @@ extern "C" {
     
     SEXP sl_host(SEXP maxProc) {
         //int _id = asInteger(d_id);
-        int _max = asInteger(maxProc);
+        unsigned int _max = (unsigned int)(asReal(maxProc));
         h_sl_exe(_max);
         return (R_NilValue);
     }

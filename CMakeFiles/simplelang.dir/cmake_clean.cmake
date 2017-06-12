@@ -8,6 +8,7 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/simplelang.dir/sl_tbl.cpp.o"
   "CMakeFiles/simplelang.dir/sl_tkn.cpp.o"
   "CMakeFiles/simplelang.dir/sl_host.cpp.o"
+  "CMakeFiles/simplelang.dir/sl2R.cpp.o"
   "libsimplelang.pdb"
   "libsimplelang.so"
 )

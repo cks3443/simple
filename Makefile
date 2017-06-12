@@ -168,25 +168,12 @@ simplelang/fast:
 	$(MAKE) -f CMakeFiles/simplelang.dir/build.make CMakeFiles/simplelang.dir/build
 .PHONY : simplelang/fast
 
-#=============================================================================
-# Target rules for targets named sl2R
-
-# Build rule for target.
-sl2R: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 sl2R
-.PHONY : sl2R
-
-# fast build rule for target.
-sl2R/fast:
-	$(MAKE) -f CMakeFiles/sl2R.dir/build.make CMakeFiles/sl2R.dir/build
-.PHONY : sl2R/fast
-
 sl2R.o: sl2R.cpp.o
 .PHONY : sl2R.o
 
 # target to build an object file
 sl2R.cpp.o:
-	$(MAKE) -f CMakeFiles/sl2R.dir/build.make CMakeFiles/sl2R.dir/sl2R.cpp.o
+	$(MAKE) -f CMakeFiles/simplelang.dir/build.make CMakeFiles/simplelang.dir/sl2R.cpp.o
 .PHONY : sl2R.cpp.o
 
 sl2R.i: sl2R.cpp.i
@@ -194,7 +181,7 @@ sl2R.i: sl2R.cpp.i
 
 # target to preprocess a source file
 sl2R.cpp.i:
-	$(MAKE) -f CMakeFiles/sl2R.dir/build.make CMakeFiles/sl2R.dir/sl2R.cpp.i
+	$(MAKE) -f CMakeFiles/simplelang.dir/build.make CMakeFiles/simplelang.dir/sl2R.cpp.i
 .PHONY : sl2R.cpp.i
 
 sl2R.s: sl2R.cpp.s
@@ -202,7 +189,7 @@ sl2R.s: sl2R.cpp.s
 
 # target to generate assembly for a file
 sl2R.cpp.s:
-	$(MAKE) -f CMakeFiles/sl2R.dir/build.make CMakeFiles/sl2R.dir/sl2R.cpp.s
+	$(MAKE) -f CMakeFiles/simplelang.dir/build.make CMakeFiles/simplelang.dir/sl2R.cpp.s
 .PHONY : sl2R.cpp.s
 
 sl_code.o: sl_code.cpp.o
@@ -363,7 +350,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... simple"
 	@echo "... simplelang"
-	@echo "... sl2R"
 	@echo "... sl2R.o"
 	@echo "... sl2R.i"
 	@echo "... sl2R.s"

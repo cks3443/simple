@@ -4,6 +4,7 @@
 #include "sl.h"
 #include "sl_prot.h"
 #include <cuda_runtime.h>
+#include <cuda.h>
 
 #define MAXSIZE_ 15
 
@@ -44,7 +45,7 @@ typedef struct{
 }DevOpt;
 
 __global__
-void sl_Exe_global(int nloop, int nBlocks, int nThreads, int maxProc, int DmemSiz, int IndexSiz, int spReg,
+void sl_Exe_global(int nloop, int nBlocks, int nThreads, unsigned int maxProc, int DmemSiz, int IndexSiz, int spReg,
      RUN_PARM* x_runParm, Stack* x_stk, d_SymTbl* GTbl, d_SymTbl* LTbl,
      int* Index, int* CodeArr, double* x_Dmem, double* d_Gmem, double* nbrLITERAL, TokenSet* x_code, double* x_stack);
 

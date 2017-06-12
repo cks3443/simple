@@ -1,3 +1,2 @@
 /home/ccg/simple/CMakeFiles/simple.dir
 /home/ccg/simple/CMakeFiles/simplelang.dir
-/home/ccg/simple/CMakeFiles/sl2R.dir

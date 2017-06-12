@@ -261,6 +261,7 @@ CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/lib/gcc/x8
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/local/cuda/include/builtin_types.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/local/cuda/include/channel_descriptor.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/local/cuda/include/common_functions.h
+CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/local/cuda/include/cuda.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/local/cuda/include/cuda_device_runtime_api.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/local/cuda/include/cuda_runtime.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o: /usr/local/cuda/include/cuda_runtime_api.h
@@ -422,6 +423,7 @@ CMakeFiles/simplelang.dir/./simplelang_generated_sl_run.cu.o: /usr/include/math.
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_run.cu.o: /usr/include/pthread.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_run.cu.o: /usr/include/sched.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_run.cu.o: /usr/include/stdc-predef.h
+CMakeFiles/simplelang.dir/./simplelang_generated_sl_run.cu.o: /usr/include/stdint.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_run.cu.o: /usr/include/stdio.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_run.cu.o: /usr/include/stdlib.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_run.cu.o: /usr/include/string.h
@@ -490,9 +492,11 @@ CMakeFiles/simplelang.dir/./simplelang_generated_sl_run.cu.o: /usr/lib/gcc/x86_6
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_run.cu.o: /usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed/syslimits.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_run.cu.o: /usr/lib/gcc/x86_64-linux-gnu/4.8/include/stdarg.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_run.cu.o: /usr/lib/gcc/x86_64-linux-gnu/4.8/include/stddef.h
+CMakeFiles/simplelang.dir/./simplelang_generated_sl_run.cu.o: /usr/lib/gcc/x86_64-linux-gnu/4.8/include/stdint.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_run.cu.o: /usr/local/cuda/include/builtin_types.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_run.cu.o: /usr/local/cuda/include/channel_descriptor.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_run.cu.o: /usr/local/cuda/include/common_functions.h
+CMakeFiles/simplelang.dir/./simplelang_generated_sl_run.cu.o: /usr/local/cuda/include/cuda.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_run.cu.o: /usr/local/cuda/include/cuda_device_runtime_api.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_run.cu.o: /usr/local/cuda/include/cuda_runtime.h
 CMakeFiles/simplelang.dir/./simplelang_generated_sl_run.cu.o: /usr/local/cuda/include/cuda_runtime_api.h
@@ -756,6 +760,7 @@ CMakeFiles/simplelang.dir/./simplelang_generated_Rinterface.cu.o: /usr/lib/gcc/x
 CMakeFiles/simplelang.dir/./simplelang_generated_Rinterface.cu.o: /usr/local/cuda/include/builtin_types.h
 CMakeFiles/simplelang.dir/./simplelang_generated_Rinterface.cu.o: /usr/local/cuda/include/channel_descriptor.h
 CMakeFiles/simplelang.dir/./simplelang_generated_Rinterface.cu.o: /usr/local/cuda/include/common_functions.h
+CMakeFiles/simplelang.dir/./simplelang_generated_Rinterface.cu.o: /usr/local/cuda/include/cuda.h
 CMakeFiles/simplelang.dir/./simplelang_generated_Rinterface.cu.o: /usr/local/cuda/include/cuda_device_runtime_api.h
 CMakeFiles/simplelang.dir/./simplelang_generated_Rinterface.cu.o: /usr/local/cuda/include/cuda_runtime.h
 CMakeFiles/simplelang.dir/./simplelang_generated_Rinterface.cu.o: /usr/local/cuda/include/cuda_runtime_api.h
@@ -963,6 +968,29 @@ CMakeFiles/simplelang.dir/sl_host.cpp.o.provides: CMakeFiles/simplelang.dir/sl_h
 
 CMakeFiles/simplelang.dir/sl_host.cpp.o.provides.build: CMakeFiles/simplelang.dir/sl_host.cpp.o
 
+CMakeFiles/simplelang.dir/sl2R.cpp.o: CMakeFiles/simplelang.dir/flags.make
+CMakeFiles/simplelang.dir/sl2R.cpp.o: sl2R.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ccg/simple/CMakeFiles $(CMAKE_PROGRESS_10)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/simplelang.dir/sl2R.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/simplelang.dir/sl2R.cpp.o -c /home/ccg/simple/sl2R.cpp
+
+CMakeFiles/simplelang.dir/sl2R.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/simplelang.dir/sl2R.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/ccg/simple/sl2R.cpp > CMakeFiles/simplelang.dir/sl2R.cpp.i
+
+CMakeFiles/simplelang.dir/sl2R.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/simplelang.dir/sl2R.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/ccg/simple/sl2R.cpp -o CMakeFiles/simplelang.dir/sl2R.cpp.s
+
+CMakeFiles/simplelang.dir/sl2R.cpp.o.requires:
+.PHONY : CMakeFiles/simplelang.dir/sl2R.cpp.o.requires
+
+CMakeFiles/simplelang.dir/sl2R.cpp.o.provides: CMakeFiles/simplelang.dir/sl2R.cpp.o.requires
+	$(MAKE) -f CMakeFiles/simplelang.dir/build.make CMakeFiles/simplelang.dir/sl2R.cpp.o.provides.build
+.PHONY : CMakeFiles/simplelang.dir/sl2R.cpp.o.provides
+
+CMakeFiles/simplelang.dir/sl2R.cpp.o.provides.build: CMakeFiles/simplelang.dir/sl2R.cpp.o
+
 # Object files for target simplelang
 simplelang_OBJECTS = \
 "CMakeFiles/simplelang.dir/sl_code.cpp.o" \
@@ -970,7 +998,8 @@ simplelang_OBJECTS = \
 "CMakeFiles/simplelang.dir/sl_pars.cpp.o" \
 "CMakeFiles/simplelang.dir/sl_tbl.cpp.o" \
 "CMakeFiles/simplelang.dir/sl_tkn.cpp.o" \
-"CMakeFiles/simplelang.dir/sl_host.cpp.o"
+"CMakeFiles/simplelang.dir/sl_host.cpp.o" \
+"CMakeFiles/simplelang.dir/sl2R.cpp.o"
 
 # External object files for target simplelang
 simplelang_EXTERNAL_OBJECTS = \
@@ -984,6 +1013,7 @@ libsimplelang.so: CMakeFiles/simplelang.dir/sl_pars.cpp.o
 libsimplelang.so: CMakeFiles/simplelang.dir/sl_tbl.cpp.o
 libsimplelang.so: CMakeFiles/simplelang.dir/sl_tkn.cpp.o
 libsimplelang.so: CMakeFiles/simplelang.dir/sl_host.cpp.o
+libsimplelang.so: CMakeFiles/simplelang.dir/sl2R.cpp.o
 libsimplelang.so: CMakeFiles/simplelang.dir/./simplelang_generated_sl_device.cu.o
 libsimplelang.so: CMakeFiles/simplelang.dir/./simplelang_generated_sl_run.cu.o
 libsimplelang.so: CMakeFiles/simplelang.dir/./simplelang_generated_Rinterface.cu.o
@@ -1003,6 +1033,7 @@ CMakeFiles/simplelang.dir/requires: CMakeFiles/simplelang.dir/sl_pars.cpp.o.requ
 CMakeFiles/simplelang.dir/requires: CMakeFiles/simplelang.dir/sl_tbl.cpp.o.requires
 CMakeFiles/simplelang.dir/requires: CMakeFiles/simplelang.dir/sl_tkn.cpp.o.requires
 CMakeFiles/simplelang.dir/requires: CMakeFiles/simplelang.dir/sl_host.cpp.o.requires
+CMakeFiles/simplelang.dir/requires: CMakeFiles/simplelang.dir/sl2R.cpp.o.requires
 .PHONY : CMakeFiles/simplelang.dir/requires
 
 CMakeFiles/simplelang.dir/clean:

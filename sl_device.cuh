@@ -49,15 +49,15 @@ void InputDvarNoH5(char* name_, int aryLen_, IO io_);
 
 void InputDvarYesH5(char* name_, int aryLen_, IO io_);
 
-void sl_run_device_H5(int devId, int maxProc, int nBlocks, int nThreads);
+void sl_run_device_H5(int devId, unsigned int maxProc, int nBlocks, int nThreads);
 
 void sl_Print_h5(string& nm);
 
 void sl_run_host_H5(int maxProc);
 
-void d_sl_exe(int devId, int maxProc);
+void d_sl_exe(int devId, unsigned int maxProc);
 
-void h_sl_exe(int maxProc);
+void h_sl_exe(unsigned int maxProc);
 
 void loadcode(char fn[]);
 
@@ -79,6 +79,7 @@ extern "C" {
     SEXP sl_host(SEXP maxProc) ;
     SEXP sl_lc(SEXP msg) ;
     SEXP sl_create(SEXP NM, SEXP RVec);
+//    void sl_create(SEXP NM, SEXP RVec);
     SEXP sl_update(SEXP NM, SEXP RVec);
     SEXP sl_get(SEXP NM);
     SEXP sl_end();

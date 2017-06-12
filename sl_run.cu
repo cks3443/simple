@@ -1,12 +1,12 @@
 #include "sl_run.cuh"
 
 __global__
-void sl_Exe_global(int nloop, int nBlocks, int nThreads, int maxProc, int DmemSiz, int IndexSiz, int spReg,
+void sl_Exe_global(int nloop, int nBlocks, int nThreads, unsigned int maxProc, int DmemSiz, int IndexSiz, int spReg,
      RUN_PARM* x_runParm, Stack* x_stk, d_SymTbl* GTbl, d_SymTbl* LTbl,
      int* Index, int* CodeArr, double* x_Dmem, double* d_Gmem, double* nbrLITERAL, TokenSet* x_code, double* x_stack)
 {
-    int lo_id = blockDim.x * blockIdx.x + threadIdx.x;
-    int thread_id = nBlocks * nThreads * nloop + lo_id;
+    unsigned int lo_id = blockDim.x * blockIdx.x + threadIdx.x;
+    unsigned int thread_id = (unsigned int)nBlocks * (unsigned int)nThreads * (unsigned int)nloop + lo_id;
     
     if (thread_id < maxProc) {
         RUN_PARM* d_runParm = &(x_runParm[thread_id]);

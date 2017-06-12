@@ -87,7 +87,8 @@ int main(int argc, char** argv)
                     std::cout << "no " << fn.c_str() << " file" << std::endl;
                     return 0;
                 }
-               */ 
+               */
+               cpymemHostToDevice();
                 d_sl_exe(devId, maxProc);
             }
             else if (cmd_v[0] == r_host) {
@@ -110,6 +111,7 @@ int main(int argc, char** argv)
                 int i = 0;
                 ++i;
                 string nm = cmd_v[i];
+                cpymemDeviceToHost();
                 sl_Print_h5(nm);
             }
         }

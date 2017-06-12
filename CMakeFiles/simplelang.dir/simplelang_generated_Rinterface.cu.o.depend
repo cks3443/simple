@@ -209,6 +209,7 @@ SET(CUDA_NVCC_DEPEND
  "/usr/local/cuda/include/builtin_types.h"
  "/usr/local/cuda/include/channel_descriptor.h"
  "/usr/local/cuda/include/common_functions.h"
+ "/usr/local/cuda/include/cuda.h"
  "/usr/local/cuda/include/cuda_device_runtime_api.h"
  "/usr/local/cuda/include/cuda_runtime.h"
  "/usr/local/cuda/include/cuda_runtime_api.h"

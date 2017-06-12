@@ -1,6 +1,5 @@
 /usr/local/bin/simple
 /usr/lib/libsimplelang.so
-/usr/lib/libsl2R.so
 /usr/local/include/sl.h
 /usr/local/include/sl_prot.h
 /usr/local/include/sl_device.cuh

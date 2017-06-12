@@ -261,6 +261,7 @@ CMakeFiles/simple.dir/./simple_generated_main.cu.o: /usr/lib/gcc/x86_64-linux-gn
 CMakeFiles/simple.dir/./simple_generated_main.cu.o: /usr/local/cuda/include/builtin_types.h
 CMakeFiles/simple.dir/./simple_generated_main.cu.o: /usr/local/cuda/include/channel_descriptor.h
 CMakeFiles/simple.dir/./simple_generated_main.cu.o: /usr/local/cuda/include/common_functions.h
+CMakeFiles/simple.dir/./simple_generated_main.cu.o: /usr/local/cuda/include/cuda.h
 CMakeFiles/simple.dir/./simple_generated_main.cu.o: /usr/local/cuda/include/cuda_device_runtime_api.h
 CMakeFiles/simple.dir/./simple_generated_main.cu.o: /usr/local/cuda/include/cuda_runtime.h
 CMakeFiles/simple.dir/./simple_generated_main.cu.o: /usr/local/cuda/include/cuda_runtime_api.h

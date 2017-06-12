@@ -57,5 +57,4 @@ SET(CMAKE_MAKEFILE_PRODUCTS
 SET(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/simple.dir/DependInfo.cmake"
   "CMakeFiles/simplelang.dir/DependInfo.cmake"
-  "CMakeFiles/sl2R.dir/DependInfo.cmake"
   )

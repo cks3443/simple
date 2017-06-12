@@ -294,6 +294,18 @@ cmath
 cctype
 -
 
+/home/ccg/simple/sl2R.cpp
+sl_device.cuh
+/home/ccg/simple/sl_device.cuh
+Rinternals.h
+-
+
+/home/ccg/simple/sl_code.cpp
+sl.h
+/home/ccg/simple/sl.h
+sl_prot.h
+/home/ccg/simple/sl_prot.h
+
 /home/ccg/simple/sl_device.cuh
 omp.h
 -
@@ -330,6 +342,18 @@ cstring
 sl_device.cuh
 /home/ccg/simple/sl_device.cuh
 
+/home/ccg/simple/sl_misc.cpp
+sl.h
+/home/ccg/simple/sl.h
+sl_prot.h
+/home/ccg/simple/sl_prot.h
+
+/home/ccg/simple/sl_pars.cpp
+sl.h
+/home/ccg/simple/sl.h
+sl_prot.h
+/home/ccg/simple/sl_prot.h
+
 /home/ccg/simple/sl_prot.h
 sl.h
 /home/ccg/simple/sl.h
@@ -341,6 +365,20 @@ sl_prot.h
 /home/ccg/simple/sl_prot.h
 cuda_runtime.h
 -
+cuda.h
+-
+
+/home/ccg/simple/sl_tbl.cpp
+sl.h
+/home/ccg/simple/sl.h
+sl_prot.h
+/home/ccg/simple/sl_prot.h
+
+/home/ccg/simple/sl_tkn.cpp
+sl.h
+/home/ccg/simple/sl.h
+sl_prot.h
+/home/ccg/simple/sl_prot.h
 
 /usr/local/cuda/include/builtin_types.h
 device_types.h
@@ -387,6 +425,12 @@ math_functions.h
 /usr/local/cuda/include/math_functions.h
 
 /usr/local/cuda/include/crt/func_macro.h
+
+/usr/local/cuda/include/cuda.h
+stdlib.h
+-
+stdint.h
+-
 
 /usr/local/cuda/include/cuda_device_runtime_api.h
 driver_types.h

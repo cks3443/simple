@@ -187,7 +187,7 @@ CUDA_BUILD_EMULATION:BOOL=OFF
 CUDA_CUDART_LIBRARY:FILEPATH=/usr/local/cuda/lib64/libcudart.so
 
 //"cuda" library (older versions only).
-CUDA_CUDA_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libcuda.so
+CUDA_CUDA_LIBRARY:FILEPATH=CUDA_CUDA_LIBRARY-NOTFOUND
 
 //Directory to put all the output files.  If blank it will default
 // to the CMAKE_CURRENT_BINARY_DIR
@@ -347,10 +347,7 @@ SimLang_BINARY_DIR:STATIC=/home/ccg/simple
 SimLang_SOURCE_DIR:STATIC=/home/ccg/simple
 
 //Dependencies for the target
-simplelang_LIB_DEPENDS:STATIC=general;/usr/local/cuda/lib64/libcudart.so;
-
-//Dependencies for the target
-sl2R_LIB_DEPENDS:STATIC=general;/usr/local/cuda/lib64/libcudart.so;general;simplelang;general;hdf5;general;hdf5_cpp;general;cudart;general;R;
+simplelang_LIB_DEPENDS:STATIC=general;/usr/local/cuda/lib64/libcudart.so;general;hdf5;general;hdf5_cpp;general;cudart;general;R;general;cuda;
 
 
 ########################
@@ -507,8 +504,6 @@ CUDA_HOST_COMPILATION_CPP-ADVANCED:INTERNAL=1
 CUDA_NVCC_EXECUTABLE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CUDA_NVCC_FLAGS
 CUDA_NVCC_FLAGS-ADVANCED:INTERNAL=1
-//MODIFIED property for variable: CUDA_NVCC_FLAGS
-CUDA_NVCC_FLAGS-MODIFIED:INTERNAL=ON
 //ADVANCED property for variable: CUDA_NVCC_FLAGS_DEBUG
 CUDA_NVCC_FLAGS_DEBUG-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CUDA_NVCC_FLAGS_MINSIZEREL

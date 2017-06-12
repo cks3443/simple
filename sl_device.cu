@@ -243,13 +243,13 @@ void sl_run_device_H5(int devId, unsigned int maxProc, int nBlocks, int nThreads
         h_CodeArr[i] = intercode[i];
     }
 
-    std::cout << cudaMalloc((void **) &d_Index, sizeof(int)*IndexSiz) << std::endl;
-/*    
+    //std::cout << cudaMalloc((void **) &d_Index, sizeof(int)*IndexSiz) << std::endl;
+    
     if (cudaSuccess != cudaMalloc((void **) &d_Index, sizeof(int)*IndexSiz))
     {
         std::cout << "Memory Over 1" << std::endl;
         return ;
-    }*/
+    }
     cudaMemcpy(d_Index, h_Index, sizeof(int)*IndexSiz, cudaMemcpyHostToDevice);
 
     if (cudaSuccess != cudaMalloc((void **) &d_CodeArr, sizeof(int)*CodeArrSiz))
@@ -700,7 +700,7 @@ void loadcode(char fn[])
 void d_sl_exe(int devId, unsigned int maxProc)
 {
     cudaSetDevice(devId);
-//    cuInit(0);
+    cuInit(0);
 
     int  nBlocks, nThreads;
     nBlocks = 65535 ;

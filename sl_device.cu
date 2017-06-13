@@ -827,13 +827,31 @@ void get_(char* name_, double *dList)
         if (Gtable[i].name == nm) {
             int adrs = Gtable[i].adrs;
             int NList = Gtable[i].aryLen;
+
+            double* hPinned;
+            //cout << "NList:\t" << NList << endl;
+            cout << "bytes:\t" << sizeof(double)*NList << endl;
+            //cudaMallocHost((void**) &hPinned, sizeof(double)*NList);
+            cudaHostAlloc((void**) &hPinned, sizeof(double)*NList, cudaHostAllocDefault);
             
-            cudaMemcpy(dList, &(d_gmem[adrs]), sizeof(double)*NList, cudaMemcpyDeviceToHost);
-/*
-            for (int i=0; i < NList; i++) {
-                dList[i] = Gmem.mem[adrs + i];
+            cudaStream_t stream1;
+            cudaError_t result;
+            result = cudaStreamCreate(&stream1);
+            
+            //cudaMemcpy(hPinned, &(d_gmem[adrs]), sizeof(double)*NList, cudaMemcpyDeviceToHost);
+            cudaMemcpyAsync(hPinned, &(d_gmem[adrs]), sizeof(double)*NList, cudaMemcpyDeviceToHost, stream1);
+            cudaStreamSynchronize(stream1);
+            result = cudaStreamDestroy(stream1);
+
+            cout << "End cudaMemcpy hPinned" << endl;
+
+            for (unsigned int i=0; i < NList; i++) {
+                //cout << hPinned[i] << endl;
+                dList[i] = hPinned[i];
             }
-*/
+
+            cudaFreeHost(hPinned);
+
             break;
         }
     }

@@ -20,6 +20,9 @@
 #include <cctype>
 #include <cstring>
 
+#include <cuda_runtime.h>
+#include <cuda_runtime_api.h>
+
 extern vector<int> intercode;
 extern vector<int> Ind;
 

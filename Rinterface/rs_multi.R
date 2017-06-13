@@ -50,7 +50,8 @@ sl_end <- function() {
 ############### rs_multi ###############
 sl_begin()
 
-L <- 5000
+#L <- 6300
+L <- 500
 TL <- L*L
 
 A <- 1:TL
@@ -71,6 +72,11 @@ sl_interpreter('multi.txt')
 
 sl_device(0, TL)
 
-#sl_get('C')
+for (i in 1:100) {
+    print( i )
+    C <- sl_get('C')
+}
 
+C[1]
+print('end')
 sl_end()

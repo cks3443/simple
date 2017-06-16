@@ -12,8 +12,8 @@ void sl_Exe_global(int nloop, int nBlocks, int nThreads, unsigned int maxProc, i
         RUN_PARM* d_runParm = &(x_runParm[thread_id]);
         Stack* d_stk = &(x_stk[thread_id]);
         
-        double* d_Dmem = new double[DmemSiz];
-        for (int i=0; i<DmemSiz; i++) d_Dmem[i] = x_Dmem[i];
+        double* d_Dmem = &(x_Dmem[thread_id * DmemSiz]);
+        //for (int i=0; i<DmemSiz; i++) d_Dmem[i] = x_Dmem[i];
         
         TokenSet* d_code = &(x_code[2*thread_id]);
         double* d_stack = &(x_stack[MAXSIZE_ * thread_id]);
@@ -32,7 +32,7 @@ void sl_Exe_global(int nloop, int nBlocks, int nThreads, unsigned int maxProc, i
 
         sl_execute(d_runParm, d_stk, GTbl, LTbl, Index, CodeArr, d_Dmem, d_Gmem, nbrLITERAL, d_code, d_stack);
 
-        delete [] d_Dmem;
+        //delete [] d_Dmem;
     }
 }
 

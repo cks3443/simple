@@ -72,10 +72,7 @@ sl_interpreter('multi.txt')
 
 sl_device(0, TL)
 
-for (i in 1:100) {
-    print( i )
-    C <- sl_get('C')
-}
+C <- sl_get('C')
 
 C[1]
 print('end')

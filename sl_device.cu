@@ -318,24 +318,24 @@ void sl_run_device_H5(int devId, unsigned int maxProc, int nBlocks, int nThreads
     GmemSiz = Gmem.size();
     nbrSiz = nbrLITERAL.size();
 
-    h_Dmem = new double[DmemSiz];
+    h_Dmem = new double[DmemSiz* maxProc];
     h_Gmem = new double[GmemSiz];
     h_nbrLITERAL = new double[nbrSiz+10];
 
-    for (int i=0; i< DmemSiz; i++) {
-		//int lo_i = i % DmemSiz;
-		h_Dmem[i] = Dmem.get(i);
+    for (int i=0; i< DmemSiz * maxProc; i++) {
+		int lo_i = i % DmemSiz;
+		h_Dmem[i] = Dmem.get(lo_i);
 	}
 
     for (int i=0; i< GmemSiz; i++) h_Gmem[i] = Gmem.get(i);
     for (int i=0; i< nbrSiz; i++)  h_nbrLITERAL[i] = nbrLITERAL[i];
 
-    if (cudaSuccess != cudaMalloc(&d_Dmem, sizeof(double)*DmemSiz))
+    if (cudaSuccess != cudaMalloc(&d_Dmem, sizeof(double)*DmemSiz * maxProc))
     {
         std::cout << "Memory Over 6" << std::endl;
         return;
     }
-    cudaMemcpy(d_Dmem, h_Dmem, sizeof(double)*DmemSiz, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_Dmem, h_Dmem, sizeof(double)*DmemSiz * maxProc, cudaMemcpyHostToDevice);
 
     if (cudaSuccess != cudaMalloc(&d_gmem, sizeof(double)*GmemSiz))
     {
@@ -375,6 +375,8 @@ void sl_run_device_H5(int devId, unsigned int maxProc, int nBlocks, int nThreads
     	sl_Exe_global<<<nBlocks, nThreads>>>(nloop, nBlocks, nThreads, maxProc, DmemSiz, IndexSiz, spReg,
 								d_runParm, d_stk, d_GTbl, d_LTbl, d_Index, d_CodeArr, d_Dmem,
 								d_gmem, d_nbrLITERAL, d_code, d_stack);
+        cudaThreadSynchronize();
+        cout << "loop:\t" << nloop << endl;
 	}
 
     //cudaMemcpy(h_Dmem, d_Dmem, sizeof(double)*DmemSiz * maxProc, cudaMemcpyDeviceToHost);
@@ -709,7 +711,8 @@ void d_sl_exe(int devId, unsigned int maxProc)
     cudaDeviceProp devProp;
     cudaGetDeviceProperties(&devProp, devId);
 
-    nThreads = (int)(devProp.maxThreadsPerBlock / 4);
+    //nThreads = (int)(devProp.maxThreadsPerBlock / 4);
+    nThreads = 32;
 
     sl_run_device_H5(devId, maxProc, nBlocks, nThreads);
 }
@@ -830,7 +833,7 @@ void get_(char* name_, double *dList)
 
             double* hPinned;
             //cout << "NList:\t" << NList << endl;
-            cout << "bytes:\t" << sizeof(double)*NList << endl;
+            //cout << "bytes:\t" << sizeof(double)*NList << endl;
             //cudaMallocHost((void**) &hPinned, sizeof(double)*NList);
             cudaHostAlloc((void**) &hPinned, sizeof(double)*NList, cudaHostAllocDefault);
             
@@ -843,7 +846,7 @@ void get_(char* name_, double *dList)
             cudaStreamSynchronize(stream1);
             result = cudaStreamDestroy(stream1);
 
-            cout << "End cudaMemcpy hPinned" << endl;
+            //cout << "End cudaMemcpy hPinned" << endl;
 
             for (unsigned int i=0; i < NList; i++) {
                 //cout << hPinned[i] << endl;

@@ -50,8 +50,7 @@ sl_end <- function() {
 ############### rs_multi ###############
 sl_begin()
 
-#L <- 6300
-L <- 500
+L <- 5000
 TL <- L*L
 
 A <- 1:TL

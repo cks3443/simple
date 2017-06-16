@@ -705,7 +705,7 @@ void d_sl_exe(int devId, unsigned int maxProc)
     cuInit(0);
 
     int  nBlocks, nThreads;
-    nBlocks = 65535 ;
+    nBlocks = 35535 ;
 
     cudaDeviceSetLimit(cudaLimitStackSize, 60*1024);
     cudaDeviceProp devProp;

@@ -6,7 +6,7 @@ extern vector<double> nbrLITERAL;
 double* d_gmem = NULL;
 
 void sl_run_device(int devId, int maxProc, int nBlocks, int nThreads, double* host_List)
-{
+{/*
 	cudaError_t error = cudaSetDevice(devId);
 
 	if (error != cudaSuccess)
@@ -210,7 +210,7 @@ void sl_run_device(int devId, int maxProc, int nBlocks, int nThreads, double* ho
 
 	cudaFree(d_stk);
 	cudaFree(d_stack);
-	cudaFree(d_code);
+	cudaFree(d_code);*/
 }
 
 void sl_run_device_H5(int devId, unsigned int maxProc, int nBlocks, int nThreads)
@@ -223,7 +223,7 @@ void sl_run_device_H5(int devId, unsigned int maxProc, int nBlocks, int nThreads
     int *h_Index, *d_Index;
     int *h_CodeArr, *d_CodeArr;
     d_SymTbl *h_GTbl, *h_LTbl, *d_GTbl, *d_LTbl;
-    double *h_Dmem, *h_Gmem, *h_nbrLITERAL, *d_Dmem, *d_Gmem, *d_nbrLITERAL;
+    double *h_Dmem, *h_Gmem, *h_nbrLITERAL, *d_Dmem, *d_nbrLITERAL;
 
     RUN_PARM *d_runParm;
 
@@ -234,30 +234,34 @@ void sl_run_device_H5(int devId, unsigned int maxProc, int nBlocks, int nThreads
     IndexSiz = (int)Ind.size();
     CodeArrSiz = (int)intercode.size();
 
-    h_Index = new int[IndexSiz];
-    h_CodeArr = new int[CodeArrSiz];
+    h_Index = new int[IndexSiz * maxProc];
+    h_CodeArr = new int[CodeArrSiz * maxProc];
 
-    for (int i=0; i< IndexSiz; i++) h_Index[i]=Ind[i];
+    for (int i=0; i< IndexSiz * maxProc; i++) {
+        unsigned int lo_i = i % IndexSiz;
+        h_Index[i]=Ind[lo_i];
+    }
 
-    for (int i=0; i< CodeArrSiz; i++) {
-        h_CodeArr[i] = intercode[i];
+    for (int i=0; i< CodeArrSiz * maxProc; i++) {
+        unsigned int lo_i = i % CodeArrSiz;
+        h_CodeArr[i] = intercode[lo_i];
     }
 
     //std::cout << cudaMalloc((void **) &d_Index, sizeof(int)*IndexSiz) << std::endl;
     
-    if (cudaSuccess != cudaMalloc((void **) &d_Index, sizeof(int)*IndexSiz))
+    if (cudaSuccess != cudaMalloc((void **) &d_Index, sizeof(int)*IndexSiz * maxProc))
     {
         std::cout << "Memory Over 1" << std::endl;
         return ;
     }
-    cudaMemcpy(d_Index, h_Index, sizeof(int)*IndexSiz, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_Index, h_Index, sizeof(int)*IndexSiz * maxProc, cudaMemcpyHostToDevice);
 
-    if (cudaSuccess != cudaMalloc((void **) &d_CodeArr, sizeof(int)*CodeArrSiz))
+    if (cudaSuccess != cudaMalloc((void **) &d_CodeArr, sizeof(int)*CodeArrSiz * maxProc))
     {
         std::cout << "Memory Over 2" << std::endl;
         return;
     }
-    cudaMemcpy(d_CodeArr, h_CodeArr, sizeof(int)*CodeArrSiz, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_CodeArr, h_CodeArr, sizeof(int)*CodeArrSiz * maxProc, cudaMemcpyHostToDevice);
 
     spReg = Dmem.size();
 
@@ -372,7 +376,8 @@ void sl_run_device_H5(int devId, unsigned int maxProc, int nBlocks, int nThreads
 
 	for (int nloop = 0; nloop < maxLoop + 1; nloop ++)
 	{
-    	sl_Exe_global<<<nBlocks, nThreads>>>(nloop, nBlocks, nThreads, maxProc, DmemSiz, IndexSiz, spReg,
+    	sl_Exe_global<<<nBlocks, nThreads>>>(nloop, nBlocks, nThreads, maxProc, DmemSiz, IndexSiz,
+                                CodeArrSiz, spReg,
 								d_runParm, d_stk, d_GTbl, d_LTbl, d_Index, d_CodeArr, d_Dmem,
 								d_gmem, d_nbrLITERAL, d_code, d_stack);
         cudaThreadSynchronize();

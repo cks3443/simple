@@ -1,19 +1,20 @@
 #include "sl_run.cuh"
 
 __global__
-void sl_Exe_global(int nloop, int nBlocks, int nThreads, unsigned int maxProc, int DmemSiz, int IndexSiz, int spReg,
+void sl_Exe_global(int nloop, int nBlocks, int nThreads, unsigned int maxProc, int DmemSiz, int IndexSiz, int CodeArrSiz, int spReg,
      RUN_PARM* x_runParm, Stack* x_stk, d_SymTbl* GTbl, d_SymTbl* LTbl,
-     int* Index, int* CodeArr, double* x_Dmem, double* d_Gmem, double* nbrLITERAL, TokenSet* x_code, double* x_stack)
+     int* x_Index, int* x_CodeArr, double* x_Dmem, double* d_Gmem, double* nbrLITERAL, TokenSet* x_code, double* x_stack)
 {
     unsigned int lo_id = blockDim.x * blockIdx.x + threadIdx.x;
     unsigned int thread_id = (unsigned int)nBlocks * (unsigned int)nThreads * (unsigned int)nloop + lo_id;
     
     if (thread_id < maxProc) {
+        int* Index = &(x_Index[thread_id * IndexSiz]);
+        int* CodeArr = &(x_CodeArr[thread_id * CodeArrSiz]);
         RUN_PARM* d_runParm = &(x_runParm[thread_id]);
         Stack* d_stk = &(x_stk[thread_id]);
         
         double* d_Dmem = &(x_Dmem[thread_id * DmemSiz]);
-        //for (int i=0; i<DmemSiz; i++) d_Dmem[i] = x_Dmem[i];
         
         TokenSet* d_code = &(x_code[2*thread_id]);
         double* d_stack = &(x_stack[MAXSIZE_ * thread_id]);
@@ -31,8 +32,6 @@ void sl_Exe_global(int nloop, int nBlocks, int nThreads, unsigned int maxProc, i
         d_runParm->maxLine = IndexSiz-2;
 
         sl_execute(d_runParm, d_stk, GTbl, LTbl, Index, CodeArr, d_Dmem, d_Gmem, nbrLITERAL, d_code, d_stack);
-
-        //delete [] d_Dmem;
     }
 }
 

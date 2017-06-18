@@ -314,7 +314,18 @@ __device__ __host__
 void sl_expression(RUN_PARM* runParm, Stack* stk, d_SymTbl* GTbl, d_SymTbl* LTbl,
             int* Index, int* CodeArr, double* d_Dmem, double* d_Gmem, double* nbrLITERAL, TokenSet* code, double* stack)
 {
+    TknKind op;
+    int nK;
     sl_term(runParm, stk, GTbl, LTbl, Index, CodeArr, d_Dmem, d_Gmem, nbrLITERAL, code, stack, 1);
+
+    while(true) {
+        if (code->nKind != 43 && code->nKind != 45) break;
+
+        nK = code->nKind;
+        sl_nextCode(code, runParm, nbrLITERAL, Index, CodeArr);
+        sl_term(runParm, stk, GTbl, LTbl, Index, CodeArr, d_Dmem, d_Gmem, nbrLITERAL, code, stack, 1);
+        sl_binaryExpr(stk, op, stack);
+    }
 }
 
 __device__ __host__
@@ -322,6 +333,22 @@ void sl_term(RUN_PARM* runParm, Stack* stk, d_SymTbl* GTbl, d_SymTbl* LTbl,
             int* Index, int* CodeArr, double* d_Dmem, double* d_Gmem, double* nbrLITERAL, TokenSet* code, double* stack,
             int n)
 {
+    TknKind op;
+
+    sl_factor(runParm, stk, GTbl, LTbl, Index, CodeArr, d_Dmem, d_Gmem, nbrLITERAL, code, stack);
+        
+    int nK = code->nKind;
+    while (nK == 47 || nK == 42 || nK == 92 ||
+        nK == 37 || nK == 166 || nK == 167 ||
+        nK == 168 || nK == 169 || nK == 170 ||
+        nK == 171 || nK == 172 || nK == 173)
+    {
+        sl_nextCode(code, runParm, nbrLITERAL, Index, CodeArr);
+        sl_factor(runParm, stk, GTbl, LTbl, Index, CodeArr, d_Dmem, d_Gmem,nbrLITERAL, code, stack);
+        sl_binaryN(stk, nK, stack);
+        nK = code->nKind;
+    }
+/*
     int nK = code->nKind;
 
 	if (n == 7) {
@@ -338,7 +365,7 @@ void sl_term(RUN_PARM* runParm, Stack* stk, d_SymTbl* GTbl, d_SymTbl* LTbl,
         sl_term(runParm, stk, GTbl, LTbl, Index, CodeArr, d_Dmem, d_Gmem, nbrLITERAL, code, stack, n+1);
 		sl_binaryN(stk, nK, stack);
     }
-
+*/
 }
 
 __device__ __host__

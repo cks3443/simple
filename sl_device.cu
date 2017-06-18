@@ -710,14 +710,14 @@ void d_sl_exe(int devId, unsigned int maxProc)
     cuInit(0);
 
     int  nBlocks, nThreads;
-    nBlocks = 35535 ;
+    nBlocks = 65535 ;
 
     cudaDeviceSetLimit(cudaLimitStackSize, 60*1024);
     cudaDeviceProp devProp;
     cudaGetDeviceProperties(&devProp, devId);
 
-    //nThreads = (int)(devProp.maxThreadsPerBlock / 4);
-    nThreads = 32;
+    nThreads = (int)(devProp.maxThreadsPerBlock);
+    //nThreads = 32;
 
     sl_run_device_H5(devId, maxProc, nBlocks, nThreads);
 }
